@@ -1,0 +1,1 @@
+web: gunicorn halal_inventory_system.wsgi:application --bind 0.0.0.0:$PORT

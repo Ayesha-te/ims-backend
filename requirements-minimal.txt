@@ -1,0 +1,15 @@
+Django==4.2.16
+djangorestframework==3.15.2
+django-cors-headers==4.4.0
+Pillow==10.4.0
+# Alternative barcode library
+treepoem==3.25.0
+qrcode[pil]==7.4.2
+requests==2.32.3
+python-decouple==3.8
+django-crontab==0.7.1
+# Alternative PDF library if reportlab fails
+WeasyPrint==62.3
+gunicorn==23.0.0
+# Use psycopg2 instead of psycopg2-binary for some environments
+psycopg2==2.9.9
