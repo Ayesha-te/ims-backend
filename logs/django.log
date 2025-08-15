@@ -71,3 +71,15 @@ INFO 2025-08-15 16:25:56,974 autoreload 27360 27380 Watching for file changes wi
 INFO 2025-08-15 16:46:28,270 autoreload 27360 27380 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\__init__.py changed, reloading.
 INFO 2025-08-15 16:46:29,429 autoreload 16844 1524 Watching for file changes with StatReloader
 INFO 2025-08-15 16:55:22,967 autoreload 26968 4212 Watching for file changes with StatReloader
+INFO 2025-08-15 17:05:13,599 autoreload 26968 4212 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 17:05:13,688 autoreload 16844 1524 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 17:05:16,415 autoreload 5664 28148 Watching for file changes with StatReloader
+INFO 2025-08-15 17:05:16,665 autoreload 10008 27084 Watching for file changes with StatReloader
+INFO 2025-08-15 17:05:28,128 autoreload 5664 28148 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 17:05:28,133 autoreload 10008 27084 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 17:05:30,002 autoreload 1968 14920 Watching for file changes with StatReloader
+INFO 2025-08-15 17:05:30,005 autoreload 8924 22276 Watching for file changes with StatReloader
+INFO 2025-08-15 17:05:33,651 autoreload 8924 22276 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 17:05:33,670 autoreload 1968 14920 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 17:05:35,015 autoreload 26892 27420 Watching for file changes with StatReloader
+INFO 2025-08-15 17:05:35,024 autoreload 28020 24540 Watching for file changes with StatReloader
