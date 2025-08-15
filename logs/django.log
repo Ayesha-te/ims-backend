@@ -32,3 +32,37 @@ WARNING 2025-08-13 16:08:31,338 log 25840 22232 Forbidden: /api/
 WARNING 2025-08-13 16:08:31,338 basehttp 25840 22232 "GET /api/ HTTP/1.1" 403 9712
 WARNING 2025-08-13 16:08:32,503 log 25840 22232 Forbidden: /api/
 WARNING 2025-08-13 16:08:32,503 basehttp 25840 22232 "GET /api/ HTTP/1.1" 403 9712
+INFO 2025-08-15 16:06:46,802 autoreload 13852 18904 Watching for file changes with StatReloader
+INFO 2025-08-15 16:08:57,392 autoreload 13852 18904 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\inventory\auth_views.py changed, reloading.
+INFO 2025-08-15 16:08:58,129 autoreload 25864 21076 Watching for file changes with StatReloader
+INFO 2025-08-15 16:09:32,165 autoreload 16528 18608 Watching for file changes with StatReloader
+INFO 2025-08-15 16:10:33,054 autoreload 25864 21076 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\inventory\auth_views.py changed, reloading.
+INFO 2025-08-15 16:10:33,650 autoreload 9940 25776 Watching for file changes with StatReloader
+INFO 2025-08-15 16:10:33,855 autoreload 16528 18608 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\inventory\auth_views.py changed, reloading.
+INFO 2025-08-15 16:10:34,617 autoreload 17536 23412 Watching for file changes with StatReloader
+INFO 2025-08-15 16:11:08,912 autoreload 27532 22392 Watching for file changes with StatReloader
+INFO 2025-08-15 16:12:38,987 autoreload 17536 23412 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 16:12:39,053 autoreload 27532 22392 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 16:12:39,212 autoreload 9940 25776 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 16:12:39,672 autoreload 22116 26908 Watching for file changes with StatReloader
+INFO 2025-08-15 16:12:39,734 autoreload 14544 9900 Watching for file changes with StatReloader
+INFO 2025-08-15 16:12:39,888 autoreload 6656 27888 Watching for file changes with StatReloader
+INFO 2025-08-15 16:12:50,046 autoreload 22116 26908 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 16:12:50,106 autoreload 14544 9900 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 16:12:50,205 autoreload 6656 27888 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 16:12:50,765 autoreload 26316 4548 Watching for file changes with StatReloader
+INFO 2025-08-15 16:12:50,827 autoreload 22556 2620 Watching for file changes with StatReloader
+INFO 2025-08-15 16:12:50,931 autoreload 24036 19872 Watching for file changes with StatReloader
+INFO 2025-08-15 16:12:59,165 autoreload 26316 4548 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 16:12:59,232 autoreload 22556 2620 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 16:12:59,273 autoreload 24036 19872 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 16:12:59,943 autoreload 3444 15492 Watching for file changes with StatReloader
+INFO 2025-08-15 16:13:00,025 autoreload 23364 8972 Watching for file changes with StatReloader
+INFO 2025-08-15 16:13:00,065 autoreload 20740 18276 Watching for file changes with StatReloader
+INFO 2025-08-15 16:14:33,420 autoreload 3444 15492 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 16:14:33,822 autoreload 23364 8972 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 16:14:33,859 autoreload 20740 18276 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\settings.py changed, reloading.
+INFO 2025-08-15 16:14:34,573 autoreload 6656 1148 Watching for file changes with StatReloader
+INFO 2025-08-15 16:14:35,024 autoreload 22544 6648 Watching for file changes with StatReloader
+INFO 2025-08-15 16:14:35,072 autoreload 3716 3364 Watching for file changes with StatReloader
+INFO 2025-08-15 16:20:24,340 autoreload 24688 13764 Watching for file changes with StatReloader

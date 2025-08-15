@@ -45,6 +45,9 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
     
+    # Link to supermarket
+    supermarket = models.ForeignKey('Supermarket', on_delete=models.CASCADE, related_name='products', null=True, blank=True)
+    
     # Halal Verification
     is_halal = models.BooleanField(default=False)
     halal_certification_number = models.CharField(max_length=100, blank=True)
@@ -52,8 +55,8 @@ class Product(models.Model):
     halal_verified_date = models.DateTimeField(null=True, blank=True)
     
     # Product Details
-    sku = models.CharField(max_length=50, unique=True)
-    barcode = models.CharField(max_length=100, unique=True, blank=True)
+    sku = models.CharField(max_length=50)
+    barcode = models.CharField(max_length=100, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     cost_price = models.DecimalField(max_digits=10, decimal_places=2)
     
@@ -77,13 +80,18 @@ class Product(models.Model):
     
     class Meta:
         ordering = ['-created_at']
+        unique_together = ['supermarket', 'sku']  # SKU unique per supermarket
     
     def __str__(self):
+        if self.supermarket:
+            return f"{self.name} ({self.supermarket.name})"
         return self.name
     
     def save(self, *args, **kwargs):
-        # Generate barcode if not exists
-        if not self.barcode:
+        # Generate unique barcode if not exists
+        if not self.barcode and self.supermarket:
+            self.barcode = f"HALAL{self.supermarket.id}_{self.sku}"
+        elif not self.barcode:
             self.barcode = f"HALAL{self.sku}"
         
         # Generate barcode and QR code images
@@ -123,7 +131,8 @@ class Product(models.Model):
                 'sku': self.sku,
                 'barcode': self.barcode,
                 'price': str(self.price),
-                'is_halal': self.is_halal
+                'is_halal': self.is_halal,
+                'supermarket': self.supermarket.name if self.supermarket else 'N/A'
             }
             
             qr = qrcode.QRCode(version=1, box_size=10, border=5)
@@ -237,3 +246,47 @@ class ProductTicket(models.Model):
     
     def __str__(self):
         return f"Ticket for {self.product.name}"
+
+
+class Supermarket(models.Model):
+    """Supermarket model for multi-vendor system"""
+    # Link to Django User for authentication
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
+    # Business Information
+    name = models.CharField(max_length=200)
+    address = models.TextField()
+    phone = models.CharField(max_length=20)
+    email = models.EmailField()
+    description = models.TextField(blank=True)
+    logo = models.URLField(blank=True)
+    
+    # Registration and Verification
+    registration_date = models.DateTimeField(auto_now_add=True)
+    is_verified = models.BooleanField(default=False)
+    verified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='verified_supermarkets')
+    verified_at = models.DateTimeField(null=True, blank=True)
+    
+    # Status
+    is_active = models.BooleanField(default=True)
+    
+    class Meta:
+        ordering = ['-registration_date']
+    
+    def __str__(self):
+        return self.name
+    
+    @property
+    def total_products(self):
+        """Get total number of products for this supermarket"""
+        return self.products.filter(is_active=True).count()
+    
+    @property
+    def total_stock_value(self):
+        """Calculate total stock value for this supermarket"""
+        from django.db.models import Sum, F
+        return self.products.filter(is_active=True).aggregate(
+            total=Sum(F('current_stock') * F('cost_price'))
+        )['total'] or 0
+
+

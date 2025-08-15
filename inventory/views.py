@@ -9,13 +9,13 @@ from django.utils import timezone
 from datetime import timedelta, date
 from .models import (
     Category, Supplier, Product, StockTransaction, 
-    ExpiryAlert, ProductTicket
+    ExpiryAlert, ProductTicket, Supermarket
 )
 from .serializers import (
     CategorySerializer, SupplierSerializer, ProductSerializer,
     ProductCreateSerializer, StockTransactionSerializer, ExpiryAlertSerializer,
     ProductTicketSerializer, BarcodeSearchSerializer, StockUpdateSerializer,
-    DashboardStatsSerializer
+    DashboardStatsSerializer, SupermarketSerializer
 )
 import json
 
@@ -40,8 +40,18 @@ class SupplierViewSet(viewsets.ModelViewSet):
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.filter(is_halal=True, is_active=True)  # Only Halal products
     permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        # Only show products belonging to the current supermarket
+        try:
+            supermarket = Supermarket.objects.get(user=self.request.user)
+            return Product.objects.filter(supermarket=supermarket, is_halal=True, is_active=True)
+        except Supermarket.DoesNotExist:
+            # For users without supermarket profiles, show all products (admin view)
+            if self.request.user.is_superuser:
+                return Product.objects.filter(is_halal=True, is_active=True)
+            return Product.objects.none()
     
     def get_serializer_class(self):
         if self.action == 'create':
@@ -49,7 +59,15 @@ class ProductViewSet(viewsets.ModelViewSet):
         return ProductSerializer
     
     def perform_create(self, serializer):
-        serializer.save()
+        # Automatically assign the product to the current user's supermarket
+        try:
+            supermarket = Supermarket.objects.get(user=self.request.user)
+            serializer.save(supermarket=supermarket)
+        except Supermarket.DoesNotExist:
+            if self.request.user.is_superuser:
+                serializer.save()  # Admin can create products without supermarket
+            else:
+                raise serializers.ValidationError("You must be registered as a supermarket to create products")
     
     @action(detail=False, methods=['post'])
     def scan_barcode(self, request):
@@ -291,6 +309,50 @@ class ProductTicketViewSet(viewsets.ReadOnlyModelViewSet):
         if product_id:
             queryset = queryset.filter(product__id=product_id)
         return queryset.order_by('-created_at')
+
+
+class SupermarketViewSet(viewsets.ModelViewSet):
+    queryset = Supermarket.objects.all()
+    serializer_class = SupermarketSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        # Regular users can only see their own supermarket
+        # Superusers can see all supermarkets
+        if self.request.user.is_superuser:
+            return Supermarket.objects.all()
+        
+        try:
+            supermarket = Supermarket.objects.get(user=self.request.user)
+            return Supermarket.objects.filter(id=supermarket.id)
+        except Supermarket.DoesNotExist:
+            return Supermarket.objects.none()
+    
+    @action(detail=True, methods=['post'])
+    def verify(self, request, pk=None):
+        """Verify a supermarket (admin only)"""
+        if not request.user.is_superuser:
+            return Response({'error': 'Only admins can verify supermarkets'}, 
+                          status=status.HTTP_403_FORBIDDEN)
+        
+        supermarket = get_object_or_404(Supermarket, pk=pk)
+        supermarket.is_verified = True
+        supermarket.verified_by = request.user
+        supermarket.verified_at = timezone.now()
+        supermarket.save()
+        
+        serializer = self.get_serializer(supermarket)
+        return Response({
+            'message': f'Supermarket {supermarket.name} has been verified',
+            'supermarket': serializer.data
+        })
+    
+    @action(detail=False, methods=['get'])
+    def verified(self, request):
+        """Get only verified supermarkets"""
+        queryset = self.get_queryset().filter(is_verified=True)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class DashboardViewSet(viewsets.ViewSet):

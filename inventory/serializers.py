@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Category, Supplier, Product, StockTransaction, ExpiryAlert, ProductTicket
+from .models import Category, Supplier, Product, StockTransaction, ExpiryAlert, ProductTicket, Supermarket
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -150,3 +150,41 @@ class DashboardStatsSerializer(serializers.Serializer):
     # Recent activities
     recent_stock_transactions = StockTransactionSerializer(many=True)
     recent_expiry_alerts = ExpiryAlertSerializer(many=True)
+
+
+class SupermarketSerializer(serializers.ModelSerializer):
+    """Serializer for Supermarket model"""
+    total_products = serializers.ReadOnlyField()
+    total_stock_value = serializers.ReadOnlyField()
+    user_email = serializers.EmailField(source='user.email', read_only=True)
+    
+    class Meta:
+        model = Supermarket
+        fields = [
+            'id', 'name', 'address', 'phone', 'email', 'description', 
+            'logo', 'registration_date', 'is_verified', 'verified_at', 
+            'is_active', 'total_products', 'total_stock_value', 'user_email'
+        ]
+        read_only_fields = ['id', 'registration_date', 'is_verified', 'verified_at']
+
+
+class SupermarketRegistrationSerializer(serializers.Serializer):
+    """Serializer for supermarket registration"""
+    name = serializers.CharField(max_length=200)
+    address = serializers.CharField()
+    phone = serializers.CharField(max_length=20)
+    email = serializers.EmailField()
+    description = serializers.CharField(required=False, allow_blank=True)
+    logo = serializers.URLField(required=False, allow_blank=True)
+    password = serializers.CharField(write_only=True, min_length=8)
+    confirm_password = serializers.CharField(write_only=True)
+    
+    def validate(self, data):
+        if data['password'] != data['confirm_password']:
+            raise serializers.ValidationError("Passwords don't match")
+        
+        # Check if user with this email already exists
+        if User.objects.filter(username=data['email']).exists():
+            raise serializers.ValidationError("A user with this email already exists")
+        
+        return data
