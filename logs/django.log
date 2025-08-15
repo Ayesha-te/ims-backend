@@ -68,3 +68,6 @@ INFO 2025-08-15 16:14:35,072 autoreload 3716 3364 Watching for file changes with
 INFO 2025-08-15 16:20:24,340 autoreload 24688 13764 Watching for file changes with StatReloader
 INFO 2025-08-15 16:25:55,048 autoreload 24688 13764 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\__init__.py changed, reloading.
 INFO 2025-08-15 16:25:56,974 autoreload 27360 27380 Watching for file changes with StatReloader
+INFO 2025-08-15 16:46:28,270 autoreload 27360 27380 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\__init__.py changed, reloading.
+INFO 2025-08-15 16:46:29,429 autoreload 16844 1524 Watching for file changes with StatReloader
+INFO 2025-08-15 16:55:22,967 autoreload 26968 4212 Watching for file changes with StatReloader
