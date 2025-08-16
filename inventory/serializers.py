@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Category, Supplier, Product, StockTransaction, ExpiryAlert, ProductTicket, Supermarket
+from .models import (
+    Category, Supplier, Product, StockTransaction, ExpiryAlert, 
+    ProductTicket, Supermarket, Substore, ExcelImport, ImageImport
+)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -18,6 +21,9 @@ class SupplierSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(source='category.name', read_only=True)
     supplier_name = serializers.CharField(source='supplier.name', read_only=True)
+    store_location = serializers.ReadOnlyField()
+    parent_supermarket_name = serializers.CharField(source='parent_supermarket.name', read_only=True)
+    substore_name = serializers.CharField(source='substore.name', read_only=True)
     is_expired = serializers.ReadOnlyField()
     is_expiring_soon = serializers.ReadOnlyField()
     days_until_expiry = serializers.ReadOnlyField()
@@ -188,3 +194,233 @@ class SupermarketRegistrationSerializer(serializers.Serializer):
             raise serializers.ValidationError("A user with this email already exists")
         
         return data
+
+
+class SubstoreSerializer(serializers.ModelSerializer):
+    """Serializer for Substore model"""
+    supermarket_name = serializers.CharField(source='supermarket.name', read_only=True)
+    manager_name = serializers.CharField(source='manager.username', read_only=True)
+    total_products = serializers.ReadOnlyField()
+    total_stock_value = serializers.ReadOnlyField()
+    
+    class Meta:
+        model = Substore
+        fields = [
+            'id', 'name', 'address', 'phone', 'email', 'description',
+            'supermarket', 'supermarket_name', 'manager', 'manager_name',
+            'created_date', 'is_active', 'total_products', 'total_stock_value'
+        ]
+        read_only_fields = ['id', 'created_date']
+
+
+class SubstoreCreateSerializer(serializers.ModelSerializer):
+    """Serializer for creating substores"""
+    
+    class Meta:
+        model = Substore
+        fields = ['name', 'address', 'phone', 'email', 'description', 'manager']
+    
+    def validate_name(self, value):
+        # Check if substore name is unique within the supermarket
+        supermarket = self.context['supermarket']
+        if Substore.objects.filter(supermarket=supermarket, name=value).exists():
+            raise serializers.ValidationError("A substore with this name already exists in your supermarket.")
+        return value
+
+
+class ExcelImportSerializer(serializers.ModelSerializer):
+    """Serializer for Excel imports"""
+    uploaded_by_name = serializers.CharField(source='uploaded_by.username', read_only=True)
+    supermarket_name = serializers.CharField(source='supermarket.name', read_only=True)
+    substore_name = serializers.CharField(source='substore.name', read_only=True)
+    
+    class Meta:
+        model = ExcelImport
+        fields = [
+            'id', 'batch_id', 'file_name', 'uploaded_by', 'uploaded_by_name',
+            'supermarket', 'supermarket_name', 'substore', 'substore_name',
+            'status', 'total_rows', 'processed_rows', 'successful_imports',
+            'failed_imports', 'error_log', 'created_at', 'started_at', 'completed_at'
+        ]
+        read_only_fields = [
+            'id', 'batch_id', 'uploaded_by', 'status', 'total_rows', 
+            'processed_rows', 'successful_imports', 'failed_imports', 
+            'error_log', 'created_at', 'started_at', 'completed_at'
+        ]
+
+
+class ExcelImportCreateSerializer(serializers.Serializer):
+    """Serializer for creating Excel imports"""
+    file_name = serializers.CharField(max_length=255)
+    file_data = serializers.CharField()  # Base64 encoded file
+    target_store = serializers.ChoiceField(choices=['supermarket', 'substore'])
+    substore_id = serializers.IntegerField(required=False, allow_null=True)
+    
+    def validate(self, data):
+        if data['target_store'] == 'substore' and not data.get('substore_id'):
+            raise serializers.ValidationError("Substore ID is required when target store is substore.")
+        return data
+
+
+class ImageImportSerializer(serializers.ModelSerializer):
+    """Serializer for Image imports"""
+    uploaded_by_name = serializers.CharField(source='uploaded_by.username', read_only=True)
+    supermarket_name = serializers.CharField(source='supermarket.name', read_only=True)
+    substore_name = serializers.CharField(source='substore.name', read_only=True)
+    
+    class Meta:
+        model = ImageImport
+        fields = [
+            'id', 'batch_id', 'image_name', 'uploaded_by', 'uploaded_by_name',
+            'supermarket', 'supermarket_name', 'substore', 'substore_name',
+            'status', 'extracted_text', 'extracted_data', 'error_log',
+            'created_at', 'started_at', 'completed_at'
+        ]
+        read_only_fields = [
+            'id', 'batch_id', 'uploaded_by', 'status', 'extracted_text',
+            'extracted_data', 'error_log', 'created_at', 'started_at', 'completed_at'
+        ]
+
+
+class ImageImportCreateSerializer(serializers.Serializer):
+    """Serializer for creating Image imports"""
+    image_name = serializers.CharField(max_length=255)
+    image_data = serializers.CharField()  # Base64 encoded image
+    target_store = serializers.ChoiceField(choices=['supermarket', 'substore'])
+    substore_id = serializers.IntegerField(required=False, allow_null=True)
+    
+    def validate(self, data):
+        if data['target_store'] == 'substore' and not data.get('substore_id'):
+            raise serializers.ValidationError("Substore ID is required when target store is substore.")
+        return data
+
+
+class ProductBulkCreateSerializer(serializers.Serializer):
+    """Serializer for bulk product creation from Excel/Image"""
+    products_data = serializers.ListField(child=serializers.DictField())
+    target_store = serializers.ChoiceField(choices=['supermarket', 'substore'])
+    substore_id = serializers.IntegerField(required=False, allow_null=True)
+    import_batch_id = serializers.CharField(max_length=100)
+    
+    def validate(self, data):
+        if data['target_store'] == 'substore' and not data.get('substore_id'):
+            raise serializers.ValidationError("Substore ID is required when target store is substore.")
+        return data
+
+
+class ProductMultiStoreCreateSerializer(serializers.Serializer):
+    """Serializer for creating products in multiple stores"""
+    product_data = serializers.DictField()
+    target_stores = serializers.ListField(
+        child=serializers.DictField(),
+        required=False,
+        help_text="List of store objects with 'type' and 'id' fields"
+    )
+    add_to_all_stores = serializers.BooleanField(default=False)
+    
+    def validate_product_data(self, value):
+        """Validate product data structure"""
+        required_fields = ['name', 'category', 'supplier', 'sku', 'price', 'cost_price']
+        for field in required_fields:
+            if field not in value:
+                raise serializers.ValidationError(f"Product data must include '{field}' field")
+        return value
+    
+    def validate_target_stores(self, value):
+        """Validate target stores structure"""
+        if value:
+            for store in value:
+                if 'type' not in store or 'id' not in store:
+                    raise serializers.ValidationError("Each target store must have 'type' and 'id' fields")
+                if store['type'] not in ['supermarket', 'substore']:
+                    raise serializers.ValidationError("Store type must be 'supermarket' or 'substore'")
+        return value
+    
+    def validate(self, data):
+        if not data.get('add_to_all_stores') and not data.get('target_stores'):
+            raise serializers.ValidationError("Either 'add_to_all_stores' must be True or 'target_stores' must be provided")
+        return data
+
+
+class EnhancedExcelImportCreateSerializer(serializers.Serializer):
+    """Enhanced serializer for Excel imports with multi-store support"""
+    file_name = serializers.CharField(max_length=255)
+    file_data = serializers.CharField()  # Base64 encoded file
+    target_stores = serializers.ListField(
+        child=serializers.DictField(),
+        required=False,
+        help_text="List of store objects with 'type' and 'id' fields"
+    )
+    add_to_all_stores = serializers.BooleanField(default=False)
+    
+    def validate(self, data):
+        if not data.get('add_to_all_stores') and not data.get('target_stores'):
+            raise serializers.ValidationError("Either 'add_to_all_stores' must be True or 'target_stores' must be provided")
+        return data
+
+
+class EnhancedImageImportCreateSerializer(serializers.Serializer):
+    """Enhanced serializer for Image imports with multi-store support"""
+    image_name = serializers.CharField(max_length=255)
+    image_data = serializers.CharField()  # Base64 encoded image
+    target_stores = serializers.ListField(
+        child=serializers.DictField(),
+        required=False,
+        help_text="List of store objects with 'type' and 'id' fields"
+    )
+    add_to_all_stores = serializers.BooleanField(default=False)
+    
+    def validate(self, data):
+        if not data.get('add_to_all_stores') and not data.get('target_stores'):
+            raise serializers.ValidationError("Either 'add_to_all_stores' must be True or 'target_stores' must be provided")
+        return data
+
+
+class POSProductSyncSerializer(serializers.Serializer):
+    """Serializer for POS product synchronization"""
+    id = serializers.UUIDField()
+    sku = serializers.CharField()
+    name = serializers.CharField()
+    barcode = serializers.CharField()
+    price = serializers.DecimalField(max_digits=10, decimal_places=2)
+    cost_price = serializers.DecimalField(max_digits=10, decimal_places=2)
+    current_stock = serializers.IntegerField()
+    category = serializers.CharField()
+    supplier = serializers.CharField()
+    is_halal = serializers.BooleanField()
+    store_location = serializers.CharField()
+    store_type = serializers.CharField()
+    store_id = serializers.IntegerField()
+    last_updated = serializers.DateTimeField()
+
+
+class POSStockUpdateSerializer(serializers.Serializer):
+    """Serializer for POS stock updates"""
+    updates = serializers.ListField(
+        child=serializers.DictField()
+    )
+    
+    def validate_updates(self, value):
+        """Validate stock update structure"""
+        for update in value:
+            required_fields = ['product_id', 'new_stock']
+            for field in required_fields:
+                if field not in update:
+                    raise serializers.ValidationError(f"Each update must include '{field}' field")
+        return value
+
+
+class POSSalesDataSerializer(serializers.Serializer):
+    """Serializer for POS sales data"""
+    sales = serializers.ListField(
+        child=serializers.DictField()
+    )
+    
+    def validate_sales(self, value):
+        """Validate sales data structure"""
+        for sale in value:
+            required_fields = ['product_id', 'quantity_sold']
+            for field in required_fields:
+                if field not in sale:
+                    raise serializers.ValidationError(f"Each sale must include '{field}' field")
+        return value

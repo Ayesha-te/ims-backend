@@ -1,4 +1,4 @@
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, serializers
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -9,13 +9,15 @@ from django.utils import timezone
 from datetime import timedelta, date
 from .models import (
     Category, Supplier, Product, StockTransaction, 
-    ExpiryAlert, ProductTicket, Supermarket
+    ExpiryAlert, ProductTicket, Supermarket, Substore, ExcelImport, ImageImport
 )
 from .serializers import (
     CategorySerializer, SupplierSerializer, ProductSerializer,
     ProductCreateSerializer, StockTransactionSerializer, ExpiryAlertSerializer,
     ProductTicketSerializer, BarcodeSearchSerializer, StockUpdateSerializer,
-    DashboardStatsSerializer, SupermarketSerializer
+    DashboardStatsSerializer, SupermarketSerializer, SubstoreSerializer,
+    SubstoreCreateSerializer, ExcelImportSerializer, ExcelImportCreateSerializer,
+    ImageImportSerializer, ImageImportCreateSerializer
 )
 import json
 
@@ -43,10 +45,15 @@ class ProductViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
-        # Only show products belonging to the current supermarket
+        # Show products belonging to the current supermarket and its substores
         try:
             supermarket = Supermarket.objects.get(user=self.request.user)
-            return Product.objects.filter(supermarket=supermarket, is_halal=True, is_active=True)
+            # Include products from main supermarket and all its substores
+            return Product.objects.filter(
+                models.Q(supermarket=supermarket) | models.Q(substore__supermarket=supermarket),
+                is_halal=True, 
+                is_active=True
+            )
         except Supermarket.DoesNotExist:
             # For users without supermarket profiles, show all products (admin view)
             if self.request.user.is_superuser:
@@ -54,7 +61,7 @@ class ProductViewSet(viewsets.ModelViewSet):
             return Product.objects.none()
     
     def get_serializer_class(self):
-        if self.action == 'create':
+        if self.action == 'create' or self.action == 'bulk_create':
             return ProductCreateSerializer
         return ProductSerializer
     
@@ -68,6 +75,79 @@ class ProductViewSet(viewsets.ModelViewSet):
                 serializer.save()  # Admin can create products without supermarket
             else:
                 raise serializers.ValidationError("You must be registered as a supermarket to create products")
+    
+    @action(detail=False, methods=['post'])
+    def bulk_create(self, request):
+        """Create products in multiple stores (supermarket and/or substores)"""
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        product_data = request.data.get('product_data', {})
+        target_stores = request.data.get('target_stores', [])  # List of store IDs
+        add_to_all_stores = request.data.get('add_to_all_stores', False)
+        
+        if not product_data:
+            return Response({'error': 'Product data is required'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        created_products = []
+        errors = []
+        
+        # Determine target stores
+        stores_to_add = []
+        
+        if add_to_all_stores:
+            # Add to main supermarket
+            stores_to_add.append({'type': 'supermarket', 'id': supermarket.id})
+            # Add to all substores
+            for substore in supermarket.substores.filter(is_active=True):
+                stores_to_add.append({'type': 'substore', 'id': substore.id})
+        else:
+            # Add to specific stores
+            for store_info in target_stores:
+                if store_info.get('type') == 'supermarket' and store_info.get('id') == supermarket.id:
+                    stores_to_add.append(store_info)
+                elif store_info.get('type') == 'substore':
+                    try:
+                        substore = Substore.objects.get(id=store_info.get('id'), supermarket=supermarket)
+                        stores_to_add.append(store_info)
+                    except Substore.DoesNotExist:
+                        errors.append(f"Substore {store_info.get('id')} not found")
+        
+        # Create products for each target store
+        for store_info in stores_to_add:
+            try:
+                product_data_copy = product_data.copy()
+                
+                if store_info['type'] == 'supermarket':
+                    product_data_copy['supermarket'] = supermarket.id
+                    product_data_copy['substore'] = None
+                else:  # substore
+                    product_data_copy['supermarket'] = None
+                    product_data_copy['substore'] = store_info['id']
+                
+                serializer = ProductCreateSerializer(data=product_data_copy, context={'request': request})
+                if serializer.is_valid():
+                    product = serializer.save()
+                    created_products.append({
+                        'product': ProductSerializer(product).data,
+                        'store_type': store_info['type'],
+                        'store_id': store_info['id']
+                    })
+                else:
+                    errors.append(f"Store {store_info['type']}:{store_info['id']} - {serializer.errors}")
+            except Exception as e:
+                errors.append(f"Store {store_info['type']}:{store_info['id']} - {str(e)}")
+        
+        return Response({
+            'created_products': created_products,
+            'total_created': len(created_products),
+            'errors': errors,
+            'success': len(created_products) > 0
+        }, status=status.HTTP_201_CREATED if created_products else status.HTTP_400_BAD_REQUEST)
     
     @action(detail=False, methods=['post'])
     def scan_barcode(self, request):
@@ -361,16 +441,29 @@ class DashboardViewSet(viewsets.ViewSet):
     
     @action(detail=False, methods=['get'])
     def stats(self, request):
-        """Get dashboard statistics"""
+        """Get dashboard statistics for supermarket and all substores"""
         today = timezone.now().date()
         thirty_days_from_now = today + timedelta(days=30)
         
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+            # Get products from supermarket and all its substores
+            products = Product.objects.filter(
+                models.Q(supermarket=supermarket) | models.Q(substore__supermarket=supermarket),
+                is_halal=True, 
+                is_active=True
+            )
+        except Supermarket.DoesNotExist:
+            if request.user.is_superuser:
+                products = Product.objects.filter(is_halal=True, is_active=True)
+            else:
+                products = Product.objects.none()
+        
         # Basic counts
-        total_products = Product.objects.filter(is_halal=True, is_active=True).count()
+        total_products = products.count()
         total_halal_products = total_products  # Since we only show Halal products
         
         # Stock-related stats
-        products = Product.objects.filter(is_halal=True, is_active=True)
         low_stock_products = products.filter(current_stock__lte=F('minimum_stock')).count()
         
         # Expiry-related stats
@@ -405,9 +498,53 @@ class DashboardViewSet(viewsets.ViewSet):
             ).count(),
         }
         
-        # Recent activities
-        recent_transactions = StockTransaction.objects.select_related('product', 'user')[:10]
-        recent_alerts = ExpiryAlert.objects.select_related('product').filter(is_read=False)[:10]
+        # Recent activities (filtered by supermarket)
+        recent_transactions = StockTransaction.objects.select_related('product', 'user').filter(
+            models.Q(product__supermarket=supermarket) | models.Q(product__substore__supermarket=supermarket)
+        )[:10] if 'supermarket' in locals() else StockTransaction.objects.select_related('product', 'user')[:10]
+        
+        recent_alerts = ExpiryAlert.objects.select_related('product').filter(
+            models.Q(product__supermarket=supermarket) | models.Q(product__substore__supermarket=supermarket),
+            is_read=False
+        )[:10] if 'supermarket' in locals() else ExpiryAlert.objects.select_related('product').filter(is_read=False)[:10]
+        
+        # Store-wise breakdown
+        store_breakdown = []
+        if 'supermarket' in locals():
+            # Main supermarket stats
+            main_products = products.filter(supermarket=supermarket, substore__isnull=True)
+            store_breakdown.append({
+                'store_type': 'supermarket',
+                'store_id': supermarket.id,
+                'store_name': supermarket.name,
+                'total_products': main_products.count(),
+                'total_stock_value': main_products.aggregate(
+                    total=Sum(F('current_stock') * F('cost_price'))
+                )['total'] or 0,
+                'low_stock_count': main_products.filter(current_stock__lte=F('minimum_stock')).count(),
+                'expiring_soon_count': main_products.filter(
+                    expiry_date__lte=thirty_days_from_now,
+                    expiry_date__gt=today
+                ).count(),
+            })
+            
+            # Substores stats
+            for substore in supermarket.substores.filter(is_active=True):
+                substore_products = products.filter(substore=substore)
+                store_breakdown.append({
+                    'store_type': 'substore',
+                    'store_id': substore.id,
+                    'store_name': substore.name,
+                    'total_products': substore_products.count(),
+                    'total_stock_value': substore_products.aggregate(
+                        total=Sum(F('current_stock') * F('cost_price'))
+                    )['total'] or 0,
+                    'low_stock_count': substore_products.filter(current_stock__lte=F('minimum_stock')).count(),
+                    'expiring_soon_count': substore_products.filter(
+                        expiry_date__lte=thirty_days_from_now,
+                        expiry_date__gt=today
+                    ).count(),
+                })
         
         stats_data = {
             'total_products': total_products,
@@ -418,12 +555,104 @@ class DashboardViewSet(viewsets.ViewSet):
             'total_stock_value': total_stock_value,
             'categories_count': categories_count,
             'suppliers_count': suppliers_count,
+            'store_breakdown': store_breakdown,
             **stock_stats,
             'recent_stock_transactions': StockTransactionSerializer(recent_transactions, many=True).data,
             'recent_expiry_alerts': ExpiryAlertSerializer(recent_alerts, many=True).data
         }
         
         return Response(stats_data)
+    
+    @action(detail=False, methods=['get'])
+    def store_specific_stats(self, request):
+        """Get statistics for a specific store (supermarket or substore)"""
+        store_type = request.query_params.get('store_type')  # 'supermarket' or 'substore'
+        store_id = request.query_params.get('store_id')
+        
+        if not store_type or not store_id:
+            return Response({'error': 'store_type and store_id are required'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            if not request.user.is_superuser:
+                return Response({'error': 'You must be registered as a supermarket'}, 
+                              status=status.HTTP_400_BAD_REQUEST)
+        
+        today = timezone.now().date()
+        thirty_days_from_now = today + timedelta(days=30)
+        
+        # Get products for specific store
+        if store_type == 'supermarket':
+            if 'supermarket' in locals() and str(supermarket.id) != store_id:
+                return Response({'error': 'Access denied to this supermarket'}, 
+                              status=status.HTTP_403_FORBIDDEN)
+            products = Product.objects.filter(supermarket_id=store_id, substore__isnull=True, is_active=True)
+            store_name = supermarket.name if 'supermarket' in locals() else 'Supermarket'
+        else:  # substore
+            try:
+                if 'supermarket' in locals():
+                    substore = Substore.objects.get(id=store_id, supermarket=supermarket)
+                else:
+                    substore = Substore.objects.get(id=store_id)
+                products = Product.objects.filter(substore=substore, is_active=True)
+                store_name = substore.name
+            except Substore.DoesNotExist:
+                return Response({'error': 'Substore not found'}, 
+                              status=status.HTTP_404_NOT_FOUND)
+        
+        # Calculate statistics
+        total_products = products.count()
+        low_stock_products = products.filter(current_stock__lte=F('minimum_stock')).count()
+        expiring_soon_products = products.filter(
+            expiry_date__lte=thirty_days_from_now,
+            expiry_date__gt=today
+        ).count()
+        expired_products = products.filter(expiry_date__lt=today).count()
+        total_stock_value = products.aggregate(
+            total=Sum(F('current_stock') * F('cost_price'))
+        )['total'] or 0
+        
+        # Stock status breakdown
+        stock_stats = {
+            'out_of_stock_count': products.filter(current_stock=0).count(),
+            'low_stock_count': products.filter(
+                current_stock__lte=F('minimum_stock'),
+                current_stock__gt=0
+            ).count(),
+            'normal_stock_count': products.filter(
+                current_stock__gt=F('minimum_stock'),
+                current_stock__lt=F('maximum_stock')
+            ).count(),
+            'overstock_count': products.filter(
+                current_stock__gte=F('maximum_stock')
+            ).count(),
+        }
+        
+        # Recent activities for this store
+        recent_transactions = StockTransaction.objects.select_related('product', 'user').filter(
+            product__in=products
+        )[:10]
+        
+        recent_alerts = ExpiryAlert.objects.select_related('product').filter(
+            product__in=products,
+            is_read=False
+        )[:10]
+        
+        return Response({
+            'store_type': store_type,
+            'store_id': store_id,
+            'store_name': store_name,
+            'total_products': total_products,
+            'low_stock_products': low_stock_products,
+            'expiring_soon_products': expiring_soon_products,
+            'expired_products': expired_products,
+            'total_stock_value': total_stock_value,
+            **stock_stats,
+            'recent_stock_transactions': StockTransactionSerializer(recent_transactions, many=True).data,
+            'recent_expiry_alerts': ExpiryAlertSerializer(recent_alerts, many=True).data
+        })
     
     @action(detail=False, methods=['get'])
     def alerts_summary(self, request):
@@ -451,4 +680,925 @@ class DashboardViewSet(viewsets.ViewSet):
                 'alerts': ExpiryAlertSerializer(expired_alerts[:5], many=True).data
             },
             'total_unread': expiring_alerts.count() + expired_alerts.count()
+        })
+
+
+class SubstoreViewSet(viewsets.ModelViewSet):
+    """ViewSet for managing substores"""
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        # Only show substores belonging to the current user's supermarket
+        try:
+            supermarket = Supermarket.objects.get(user=self.request.user)
+            return Substore.objects.filter(supermarket=supermarket)
+        except Supermarket.DoesNotExist:
+            if self.request.user.is_superuser:
+                return Substore.objects.all()
+            return Substore.objects.none()
+    
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return SubstoreCreateSerializer
+        return SubstoreSerializer
+    
+    def perform_create(self, serializer):
+        # Automatically assign the substore to the current user's supermarket
+        try:
+            supermarket = Supermarket.objects.get(user=self.request.user)
+            serializer.save(supermarket=supermarket)
+        except Supermarket.DoesNotExist:
+            if self.request.user.is_superuser:
+                # Admin can create substores for any supermarket
+                serializer.save()
+            else:
+                raise serializers.ValidationError("You must be registered as a supermarket to create substores")
+    
+    @action(detail=True, methods=['get'])
+    def products(self, request, pk=None):
+        """Get all products for a specific substore"""
+        substore = get_object_or_404(Substore, pk=pk)
+        products = Product.objects.filter(substore=substore, is_active=True)
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+    
+    @action(detail=True, methods=['get'])
+    def stats(self, request, pk=None):
+        """Get statistics for a specific substore"""
+        substore = get_object_or_404(Substore, pk=pk)
+        products = Product.objects.filter(substore=substore, is_active=True)
+        
+        stats = {
+            'total_products': products.count(),
+            'total_stock_value': substore.total_stock_value,
+            'low_stock_products': products.filter(current_stock__lte=F('minimum_stock')).count(),
+            'expiring_soon_products': products.filter(
+                expiry_date__lte=timezone.now().date() + timedelta(days=30),
+                expiry_date__gt=timezone.now().date()
+            ).count(),
+            'expired_products': products.filter(expiry_date__lt=timezone.now().date()).count(),
+        }
+        
+        return Response(stats)
+
+
+class ExcelImportViewSet(viewsets.ModelViewSet):
+    """ViewSet for managing Excel imports"""
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        # Only show imports belonging to the current user's supermarket
+        try:
+            supermarket = Supermarket.objects.get(user=self.request.user)
+            return ExcelImport.objects.filter(
+                models.Q(supermarket=supermarket) | models.Q(substore__supermarket=supermarket)
+            )
+        except Supermarket.DoesNotExist:
+            if self.request.user.is_superuser:
+                return ExcelImport.objects.all()
+            return ExcelImport.objects.filter(uploaded_by=self.request.user)
+    
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return ExcelImportCreateSerializer
+        return ExcelImportSerializer
+    
+    def create(self, request, *args, **kwargs):
+        """Create a new Excel import and process it"""
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        # Get user's supermarket
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        # Determine target store
+        target_store = serializer.validated_data['target_store']
+        substore = None
+        
+        if target_store == 'substore':
+            substore_id = serializer.validated_data['substore_id']
+            try:
+                substore = Substore.objects.get(id=substore_id, supermarket=supermarket)
+            except Substore.DoesNotExist:
+                return Response({'error': 'Substore not found'}, 
+                              status=status.HTTP_400_BAD_REQUEST)
+        
+        # Create Excel import record
+        excel_import = ExcelImport.objects.create(
+            file_name=serializer.validated_data['file_name'],
+            file_data=serializer.validated_data['file_data'],
+            uploaded_by=request.user,
+            supermarket=supermarket if target_store == 'supermarket' else None,
+            substore=substore
+        )
+        
+        # Process the Excel file asynchronously (in a real app, use Celery)
+        try:
+            ExcelImport.process_excel_file(excel_import)
+        except Exception as e:
+            excel_import.status = 'FAILED'
+            excel_import.error_log = str(e)
+            excel_import.save()
+        
+        return Response(ExcelImportSerializer(excel_import).data, status=status.HTTP_201_CREATED)
+    
+    @action(detail=True, methods=['get'])
+    def status(self, request, pk=None):
+        """Get import status"""
+        excel_import = get_object_or_404(ExcelImport, pk=pk)
+        return Response({
+            'status': excel_import.status,
+            'total_rows': excel_import.total_rows,
+            'processed_rows': excel_import.processed_rows,
+            'successful_imports': excel_import.successful_imports,
+            'failed_imports': excel_import.failed_imports,
+            'error_log': excel_import.error_log
+        })
+
+
+class ImageImportViewSet(viewsets.ModelViewSet):
+    """ViewSet for managing Image imports"""
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        # Only show imports belonging to the current user's supermarket
+        try:
+            supermarket = Supermarket.objects.get(user=self.request.user)
+            return ImageImport.objects.filter(
+                models.Q(supermarket=supermarket) | models.Q(substore__supermarket=supermarket)
+            )
+        except Supermarket.DoesNotExist:
+            if self.request.user.is_superuser:
+                return ImageImport.objects.all()
+            return ImageImport.objects.filter(uploaded_by=self.request.user)
+    
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return ImageImportCreateSerializer
+        return ImageImportSerializer
+    
+    def create(self, request, *args, **kwargs):
+        """Create a new Image import and process it"""
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        # Get user's supermarket
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        # Determine target store
+        target_store = serializer.validated_data['target_store']
+        substore = None
+        
+        if target_store == 'substore':
+            substore_id = serializer.validated_data['substore_id']
+            try:
+                substore = Substore.objects.get(id=substore_id, supermarket=supermarket)
+            except Substore.DoesNotExist:
+                return Response({'error': 'Substore not found'}, 
+                              status=status.HTTP_400_BAD_REQUEST)
+        
+        # Create Image import record
+        image_import = ImageImport.objects.create(
+            image_name=serializer.validated_data['image_name'],
+            image_data=serializer.validated_data['image_data'],
+            uploaded_by=request.user,
+            supermarket=supermarket if target_store == 'supermarket' else None,
+            substore=substore
+        )
+        
+        # Process the image file
+        try:
+            extracted_data = ImageImport.process_image_file(image_import)
+            return Response({
+                'import_data': ImageImportSerializer(image_import).data,
+                'extracted_data': extracted_data
+            }, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            image_import.status = 'FAILED'
+            image_import.error_log = str(e)
+            image_import.save()
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+    @action(detail=True, methods=['post'])
+    def create_product_from_extraction(self, request, pk=None):
+        """Create a product from extracted image data"""
+        image_import = get_object_or_404(ImageImport, pk=pk)
+        
+        if image_import.status != 'COMPLETED':
+            return Response({'error': 'Image processing not completed'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        # Get product data from request
+        product_data = request.data
+        
+        # Add import information
+        product_data.update({
+            'imported_from_image': True,
+            'import_batch_id': str(image_import.batch_id),
+            'supermarket': image_import.supermarket.id if image_import.supermarket else None,
+            'substore': image_import.substore.id if image_import.substore else None,
+        })
+        
+        # Create product
+        serializer = ProductCreateSerializer(data=product_data, context={'request': request})
+        if serializer.is_valid():
+            product = serializer.save()
+            return Response(ProductSerializer(product).data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class POSIntegrationViewSet(viewsets.ViewSet):
+    """POS Integration endpoints for external systems"""
+    permission_classes = [IsAuthenticated]
+    
+    @action(detail=False, methods=['get'])
+    def products_sync(self, request):
+        """Get all products for POS synchronization"""
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+            products = Product.objects.filter(
+                models.Q(supermarket=supermarket) | models.Q(substore__supermarket=supermarket),
+                is_halal=True, 
+                is_active=True
+            )
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        # Format products for POS system
+        pos_products = []
+        for product in products:
+            pos_products.append({
+                'id': str(product.id),
+                'sku': product.sku,
+                'name': product.name,
+                'barcode': product.barcode,
+                'price': float(product.price),
+                'cost_price': float(product.cost_price),
+                'current_stock': product.current_stock,
+                'category': product.category.name,
+                'supplier': product.supplier.name,
+                'is_halal': product.is_halal,
+                'store_location': product.store_location,
+                'store_type': 'substore' if product.substore else 'supermarket',
+                'store_id': product.substore.id if product.substore else product.supermarket.id,
+                'last_updated': product.updated_at.isoformat(),
+            })
+        
+        return Response({
+            'products': pos_products,
+            'total_count': len(pos_products),
+            'sync_timestamp': timezone.now().isoformat()
+        })
+    
+    @action(detail=False, methods=['post'])
+    def stock_update_from_pos(self, request):
+        """Update stock levels from POS system"""
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        updates = request.data.get('updates', [])
+        if not updates:
+            return Response({'error': 'No updates provided'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        successful_updates = []
+        failed_updates = []
+        
+        for update in updates:
+            try:
+                product_id = update.get('product_id')
+                new_stock = update.get('new_stock')
+                transaction_type = update.get('transaction_type', 'ADJUSTMENT')
+                reason = update.get('reason', 'POS System Update')
+                
+                # Find product
+                product = Product.objects.get(
+                    Q(id=product_id) & 
+                    (Q(supermarket=supermarket) | Q(substore__supermarket=supermarket)) &
+                    Q(is_active=True)
+                )
+                
+                previous_stock = product.current_stock
+                product.current_stock = new_stock
+                product.save()
+                
+                # Create stock transaction record
+                StockTransaction.objects.create(
+                    product=product,
+                    transaction_type=transaction_type,
+                    quantity=abs(new_stock - previous_stock),
+                    previous_stock=previous_stock,
+                    new_stock=new_stock,
+                    reason=reason,
+                    user=request.user
+                )
+                
+                successful_updates.append({
+                    'product_id': product_id,
+                    'previous_stock': previous_stock,
+                    'new_stock': new_stock,
+                    'status': 'success'
+                })
+                
+            except Product.DoesNotExist:
+                failed_updates.append({
+                    'product_id': update.get('product_id'),
+                    'error': 'Product not found',
+                    'status': 'failed'
+                })
+            except Exception as e:
+                failed_updates.append({
+                    'product_id': update.get('product_id'),
+                    'error': str(e),
+                    'status': 'failed'
+                })
+        
+        return Response({
+            'successful_updates': successful_updates,
+            'failed_updates': failed_updates,
+            'total_processed': len(updates),
+            'success_count': len(successful_updates),
+            'failure_count': len(failed_updates)
+        })
+    
+    @action(detail=False, methods=['post'])
+    def sales_data_from_pos(self, request):
+        """Receive sales data from POS system"""
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        sales_data = request.data.get('sales', [])
+        if not sales_data:
+            return Response({'error': 'No sales data provided'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        processed_sales = []
+        failed_sales = []
+        
+        for sale in sales_data:
+            try:
+                product_id = sale.get('product_id')
+                quantity_sold = sale.get('quantity_sold', 0)
+                sale_price = sale.get('sale_price', 0)
+                sale_timestamp = sale.get('timestamp')
+                
+                # Find product and update stock
+                product = Product.objects.get(
+                    Q(id=product_id) & 
+                    (Q(supermarket=supermarket) | Q(substore__supermarket=supermarket)) &
+                    Q(is_active=True)
+                )
+                
+                if product.current_stock >= quantity_sold:
+                    previous_stock = product.current_stock
+                    product.current_stock -= quantity_sold
+                    product.save()
+                    
+                    # Create stock transaction record
+                    StockTransaction.objects.create(
+                        product=product,
+                        transaction_type='OUT',
+                        quantity=quantity_sold,
+                        previous_stock=previous_stock,
+                        new_stock=product.current_stock,
+                        reason=f'POS Sale - ${sale_price}',
+                        user=request.user
+                    )
+                    
+                    processed_sales.append({
+                        'product_id': product_id,
+                        'quantity_sold': quantity_sold,
+                        'remaining_stock': product.current_stock,
+                        'status': 'success'
+                    })
+                else:
+                    failed_sales.append({
+                        'product_id': product_id,
+                        'error': f'Insufficient stock. Available: {product.current_stock}, Requested: {quantity_sold}',
+                        'status': 'failed'
+                    })
+                    
+            except Product.DoesNotExist:
+                failed_sales.append({
+                    'product_id': sale.get('product_id'),
+                    'error': 'Product not found',
+                    'status': 'failed'
+                })
+            except Exception as e:
+                failed_sales.append({
+                    'product_id': sale.get('product_id'),
+                    'error': str(e),
+                    'status': 'failed'
+                })
+        
+        return Response({
+            'processed_sales': processed_sales,
+            'failed_sales': failed_sales,
+            'total_processed': len(sales_data),
+            'success_count': len(processed_sales),
+            'failure_count': len(failed_sales)
+        })
+    
+    @action(detail=False, methods=['get'])
+    def store_locations(self, request):
+        """Get all store locations for POS configuration"""
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        locations = []
+        
+        # Main supermarket
+        locations.append({
+            'id': supermarket.id,
+            'type': 'supermarket',
+            'name': supermarket.name,
+            'address': supermarket.address,
+            'phone': supermarket.phone,
+            'is_active': supermarket.is_active
+        })
+        
+        # Substores
+        for substore in supermarket.substores.filter(is_active=True):
+            locations.append({
+                'id': substore.id,
+                'type': 'substore',
+                'name': substore.name,
+                'address': substore.address,
+                'phone': substore.phone,
+                'parent_supermarket': supermarket.name,
+                'is_active': substore.is_active
+            })
+        
+        return Response({
+            'locations': locations,
+            'total_count': len(locations)
+        })
+
+
+class POSIntegrationViewSet(viewsets.ViewSet):
+    """ViewSet for POS Integration operations"""
+    permission_classes = [IsAuthenticated]
+    
+    @action(detail=False, methods=['post'])
+    def products_sync(self, request):
+        """Sync products with POS system"""
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        # Get all products for this supermarket
+        products = Product.objects.filter(
+            Q(supermarket=supermarket) | Q(substore__supermarket=supermarket),
+            is_active=True
+        )
+        
+        # Simulate sync process
+        synced_products = []
+        for product in products:
+            synced_products.append({
+                'id': product.id,
+                'name': product.name,
+                'sku': product.sku,
+                'barcode': product.barcode,
+                'price': float(product.price),
+                'current_stock': product.current_stock,
+                'sync_status': 'success'
+            })
+        
+        return Response({
+            'message': 'Products synced successfully',
+            'total_count': len(synced_products),
+            'synced_products': synced_products,
+            'sync_timestamp': timezone.now().isoformat()
+        })
+    
+    @action(detail=False, methods=['post'])
+    def stock_update_from_pos(self, request):
+        """Update stock levels from POS system"""
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        updates = request.data.get('updates', [])
+        if not updates:
+            return Response({'error': 'No updates provided'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        successful_updates = []
+        failed_updates = []
+        
+        for update in updates:
+            try:
+                product_id = update.get('product_id')
+                new_stock = update.get('new_stock')
+                transaction_type = update.get('transaction_type', 'ADJUSTMENT')
+                reason = update.get('reason', 'POS System Update')
+                
+                # Find product
+                product = Product.objects.get(
+                    Q(id=product_id) & 
+                    (Q(supermarket=supermarket) | Q(substore__supermarket=supermarket)) &
+                    Q(is_active=True)
+                )
+                
+                previous_stock = product.current_stock
+                product.current_stock = new_stock
+                product.save()
+                
+                # Create stock transaction record
+                StockTransaction.objects.create(
+                    product=product,
+                    transaction_type=transaction_type,
+                    quantity=abs(new_stock - previous_stock),
+                    previous_stock=previous_stock,
+                    new_stock=new_stock,
+                    reason=reason,
+                    user=request.user
+                )
+                
+                successful_updates.append({
+                    'product_id': product_id,
+                    'previous_stock': previous_stock,
+                    'new_stock': new_stock,
+                    'status': 'success'
+                })
+                
+            except Product.DoesNotExist:
+                failed_updates.append({
+                    'product_id': update.get('product_id'),
+                    'error': 'Product not found',
+                    'status': 'failed'
+                })
+            except Exception as e:
+                failed_updates.append({
+                    'product_id': update.get('product_id'),
+                    'error': str(e),
+                    'status': 'failed'
+                })
+        
+        return Response({
+            'successful_updates': successful_updates,
+            'failed_updates': failed_updates,
+            'total_processed': len(updates),
+            'success_count': len(successful_updates),
+            'failure_count': len(failed_updates)
+        })
+    
+    @action(detail=False, methods=['post'])
+    def sales_data_from_pos(self, request):
+        """Receive sales data from POS system"""
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        sales_data = request.data.get('sales', [])
+        if not sales_data:
+            return Response({'error': 'No sales data provided'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        processed_sales = []
+        failed_sales = []
+        
+        for sale in sales_data:
+            try:
+                product_id = sale.get('product_id')
+                quantity_sold = sale.get('quantity_sold', 0)
+                sale_price = sale.get('sale_price', 0)
+                sale_timestamp = sale.get('timestamp')
+                
+                # Find product and update stock
+                product = Product.objects.get(
+                    Q(id=product_id) & 
+                    (Q(supermarket=supermarket) | Q(substore__supermarket=supermarket)) &
+                    Q(is_active=True)
+                )
+                
+                if product.current_stock >= quantity_sold:
+                    previous_stock = product.current_stock
+                    product.current_stock -= quantity_sold
+                    product.save()
+                    
+                    # Create stock transaction record
+                    StockTransaction.objects.create(
+                        product=product,
+                        transaction_type='OUT',
+                        quantity=quantity_sold,
+                        previous_stock=previous_stock,
+                        new_stock=product.current_stock,
+                        reason=f'POS Sale - ${sale_price}',
+                        user=request.user
+                    )
+                    
+                    processed_sales.append({
+                        'product_id': product_id,
+                        'quantity_sold': quantity_sold,
+                        'remaining_stock': product.current_stock,
+                        'status': 'success'
+                    })
+                else:
+                    failed_sales.append({
+                        'product_id': product_id,
+                        'error': f'Insufficient stock. Available: {product.current_stock}, Requested: {quantity_sold}',
+                        'status': 'failed'
+                    })
+                    
+            except Product.DoesNotExist:
+                failed_sales.append({
+                    'product_id': sale.get('product_id'),
+                    'error': 'Product not found',
+                    'status': 'failed'
+                })
+            except Exception as e:
+                failed_sales.append({
+                    'product_id': sale.get('product_id'),
+                    'error': str(e),
+                    'status': 'failed'
+                })
+        
+        return Response({
+            'processed_sales': processed_sales,
+            'failed_sales': failed_sales,
+            'total_processed': len(sales_data),
+            'success_count': len(processed_sales),
+            'failure_count': len(failed_sales)
+        })
+    
+    @action(detail=False, methods=['get'])
+    def store_locations(self, request):
+        """Get all store locations for POS configuration"""
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        locations = []
+        
+        # Main supermarket
+        locations.append({
+            'id': supermarket.id,
+            'type': 'supermarket',
+            'name': supermarket.name,
+            'address': supermarket.address,
+            'phone': supermarket.phone,
+            'is_active': supermarket.is_active
+        })
+        
+        # Substores
+        for substore in supermarket.substores.filter(is_active=True):
+            locations.append({
+                'id': substore.id,
+                'type': 'substore',
+                'name': substore.name,
+                'address': substore.address,
+                'phone': substore.phone,
+                'parent_supermarket': supermarket.name,
+                'is_active': substore.is_active
+            })
+        
+        return Response({
+            'locations': locations,
+            'total_count': len(locations)
+        })
+
+
+class DashboardViewSet(viewsets.ViewSet):
+    """ViewSet for Dashboard statistics and data"""
+    permission_classes = [IsAuthenticated]
+    
+    @action(detail=False, methods=['get'])
+    def stats(self, request):
+        """Get overall dashboard statistics"""
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        # Get all products for this supermarket
+        products = Product.objects.filter(
+            Q(supermarket=supermarket) | Q(substore__supermarket=supermarket),
+            is_active=True
+        )
+        
+        # Calculate statistics
+        total_products = products.count()
+        total_stock_value = sum(p.price * p.current_stock for p in products)
+        low_stock_products = products.filter(current_stock__lte=F('minimum_stock')).count()
+        
+        # Expiry alerts
+        today = timezone.now().date()
+        expiring_soon = products.filter(
+            expiry_date__lte=today + timedelta(days=7),
+            expiry_date__gt=today
+        ).count()
+        
+        expired_products = products.filter(expiry_date__lt=today).count()
+        
+        # Category breakdown
+        category_stats = products.values('category').annotate(
+            count=Count('id'),
+            total_value=Sum(F('price') * F('current_stock'))
+        ).order_by('-count')
+        
+        # Store breakdown
+        store_stats = []
+        
+        # Main supermarket stats
+        main_products = products.filter(supermarket=supermarket)
+        store_stats.append({
+            'type': 'supermarket',
+            'name': supermarket.name,
+            'product_count': main_products.count(),
+            'total_value': sum(p.price * p.current_stock for p in main_products),
+            'low_stock_count': main_products.filter(current_stock__lte=F('minimum_stock')).count()
+        })
+        
+        # Substore stats
+        for substore in supermarket.substores.filter(is_active=True):
+            substore_products = products.filter(substore=substore)
+            store_stats.append({
+                'type': 'substore',
+                'name': substore.name,
+                'product_count': substore_products.count(),
+                'total_value': sum(p.price * p.current_stock for p in substore_products),
+                'low_stock_count': substore_products.filter(current_stock__lte=F('minimum_stock')).count()
+            })
+        
+        return Response({
+            'total_products': total_products,
+            'total_stock_value': float(total_stock_value),
+            'low_stock_products': low_stock_products,
+            'expiring_soon': expiring_soon,
+            'expired_products': expired_products,
+            'category_breakdown': list(category_stats),
+            'store_breakdown': store_stats,
+            'total_stores': 1 + supermarket.substores.filter(is_active=True).count()
+        })
+    
+    @action(detail=False, methods=['get'])
+    def store_specific_stats(self, request):
+        """Get statistics for a specific store"""
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        store_type = request.query_params.get('store_type')
+        store_id = request.query_params.get('store_id')
+        
+        if not store_type or not store_id:
+            return Response({'error': 'store_type and store_id are required'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        if store_type == 'supermarket':
+            products = Product.objects.filter(supermarket=supermarket, is_active=True)
+            store_name = supermarket.name
+        elif store_type == 'substore':
+            try:
+                substore = Substore.objects.get(id=store_id, supermarket=supermarket)
+                products = Product.objects.filter(substore=substore, is_active=True)
+                store_name = substore.name
+            except Substore.DoesNotExist:
+                return Response({'error': 'Substore not found'}, 
+                              status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({'error': 'Invalid store_type'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        # Calculate statistics for the specific store
+        total_products = products.count()
+        total_stock_value = sum(p.price * p.current_stock for p in products)
+        low_stock_products = products.filter(current_stock__lte=F('minimum_stock')).count()
+        
+        # Expiry alerts
+        today = timezone.now().date()
+        expiring_soon = products.filter(
+            expiry_date__lte=today + timedelta(days=7),
+            expiry_date__gt=today
+        ).count()
+        
+        expired_products = products.filter(expiry_date__lt=today).count()
+        
+        # Category breakdown
+        category_stats = products.values('category').annotate(
+            count=Count('id'),
+            total_value=Sum(F('price') * F('current_stock'))
+        ).order_by('-count')
+        
+        return Response({
+            'store_name': store_name,
+            'store_type': store_type,
+            'total_products': total_products,
+            'total_stock_value': float(total_stock_value),
+            'low_stock_products': low_stock_products,
+            'expiring_soon': expiring_soon,
+            'expired_products': expired_products,
+            'category_breakdown': list(category_stats)
+        })
+    
+    @action(detail=False, methods=['get'])
+    def alerts_summary(self, request):
+        """Get summary of all alerts"""
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'You must be registered as a supermarket'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        # Get all products for this supermarket
+        products = Product.objects.filter(
+            Q(supermarket=supermarket) | Q(substore__supermarket=supermarket),
+            is_active=True
+        )
+        
+        today = timezone.now().date()
+        
+        # Low stock alerts
+        low_stock_products = products.filter(current_stock__lte=F('minimum_stock'))
+        
+        # Expiry alerts
+        expiring_soon = products.filter(
+            expiry_date__lte=today + timedelta(days=7),
+            expiry_date__gt=today
+        )
+        
+        expired_products = products.filter(expiry_date__lt=today)
+        
+        # Out of stock
+        out_of_stock = products.filter(current_stock=0)
+        
+        return Response({
+            'low_stock': {
+                'count': low_stock_products.count(),
+                'products': [
+                    {
+                        'id': p.id,
+                        'name': p.name,
+                        'current_stock': p.current_stock,
+                        'minimum_stock': p.minimum_stock,
+                        'store_name': p.substore.name if p.substore else supermarket.name
+                    } for p in low_stock_products[:10]  # Limit to 10 for performance
+                ]
+            },
+            'expiring_soon': {
+                'count': expiring_soon.count(),
+                'products': [
+                    {
+                        'id': p.id,
+                        'name': p.name,
+                        'expiry_date': p.expiry_date,
+                        'days_until_expiry': (p.expiry_date - today).days,
+                        'store_name': p.substore.name if p.substore else supermarket.name
+                    } for p in expiring_soon[:10]
+                ]
+            },
+            'expired': {
+                'count': expired_products.count(),
+                'products': [
+                    {
+                        'id': p.id,
+                        'name': p.name,
+                        'expiry_date': p.expiry_date,
+                        'days_expired': (today - p.expiry_date).days,
+                        'store_name': p.substore.name if p.substore else supermarket.name
+                    } for p in expired_products[:10]
+                ]
+            },
+            'out_of_stock': {
+                'count': out_of_stock.count(),
+                'products': [
+                    {
+                        'id': p.id,
+                        'name': p.name,
+                        'store_name': p.substore.name if p.substore else supermarket.name
+                    } for p in out_of_stock[:10]
+                ]
+            }
         })

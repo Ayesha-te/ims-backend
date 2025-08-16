@@ -3,7 +3,8 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     CategoryViewSet, SupplierViewSet, ProductViewSet,
     StockTransactionViewSet, ExpiryAlertViewSet, 
-    ProductTicketViewSet, DashboardViewSet, SupermarketViewSet
+    ProductTicketViewSet, DashboardViewSet, SupermarketViewSet,
+    SubstoreViewSet, ExcelImportViewSet, ImageImportViewSet, POSIntegrationViewSet
 )
 from .auth_views import (
     register_supermarket, login_supermarket, logout_supermarket,
@@ -19,6 +20,10 @@ router.register(r'stock-transactions', StockTransactionViewSet)
 router.register(r'expiry-alerts', ExpiryAlertViewSet)
 router.register(r'product-tickets', ProductTicketViewSet)
 router.register(r'supermarkets', SupermarketViewSet, basename='supermarket')
+router.register(r'substores', SubstoreViewSet, basename='substore')
+router.register(r'excel-imports', ExcelImportViewSet, basename='excel-import')
+router.register(r'image-imports', ImageImportViewSet, basename='image-import')
+router.register(r'pos-integration', POSIntegrationViewSet, basename='pos-integration')
 router.register(r'dashboard', DashboardViewSet, basename='dashboard')
 
 urlpatterns = [
