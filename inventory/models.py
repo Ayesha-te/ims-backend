@@ -9,7 +9,6 @@ from io import BytesIO
 import qrcode
 from PIL import Image
 import base64
-import pandas as pd
 import json
 
 

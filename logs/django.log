@@ -227,3 +227,18 @@ WARNING 2025-08-16 16:19:42,136 log 10124 25876 Unauthorized: /api/product-ticke
 WARNING 2025-08-16 16:19:42,137 basehttp 10124 25876 "GET /api/product-tickets/ HTTP/1.1" 401 58
 WARNING 2025-08-16 16:19:42,142 log 10124 5600 Bad Request: /api/auth/register/
 WARNING 2025-08-16 16:19:42,142 basehttp 10124 5600 "POST /api/auth/register/ HTTP/1.1" 400 48
+INFO 2025-08-16 16:50:27,427 utils 1980 27520 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:50:44,972 utils 12624 31348 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:52:21,544 utils 25528 9416 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:52:38,887 utils 29372 13988 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:52:39,466 wsgi 29372 13988 WSGI application started successfully
+INFO 2025-08-16 16:55:07,565 wsgi 18036 5572 WSGI application started successfully
+INFO 2025-08-16 16:56:53,037 wsgi 30148 13640 WSGI application started successfully
+INFO 2025-08-16 16:58:15,282 wsgi 5192 21840 Starting WSGI application...
+INFO 2025-08-16 16:58:15,282 wsgi 5192 21840 Python version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+INFO 2025-08-16 16:58:15,283 wsgi 5192 21840 Python path: ['C:\\Users\\Ayesha Jahangir\\Downloads\\New folder\\ims-backend', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\python313.zip', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\DLLs', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313', 'C:\\Users\\Ayesha Jahangir\\AppData\\Roaming\\Python\\Python313\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32\\lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\Pythonwin']
+INFO 2025-08-16 16:58:15,291 wsgi 5192 21840 WSGI application started successfully
+INFO 2025-08-16 16:59:23,042 wsgi 22908 24632 Starting WSGI application...
+INFO 2025-08-16 16:59:23,042 wsgi 22908 24632 Python version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+INFO 2025-08-16 16:59:23,042 wsgi 22908 24632 Python path: ['C:\\Users\\Ayesha Jahangir\\Downloads\\New folder\\ims-backend', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\python313.zip', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\DLLs', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313', 'C:\\Users\\Ayesha Jahangir\\AppData\\Roaming\\Python\\Python313\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32\\lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\Pythonwin']
+INFO 2025-08-16 16:59:23,052 wsgi 22908 24632 WSGI application started successfully
