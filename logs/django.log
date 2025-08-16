@@ -65,21 +65,165 @@ INFO 2025-08-15 16:14:33,859 autoreload 20740 18276 C:\Users\Ayesha Jahangir\Dow
 INFO 2025-08-15 16:14:34,573 autoreload 6656 1148 Watching for file changes with StatReloader
 INFO 2025-08-15 16:14:35,024 autoreload 22544 6648 Watching for file changes with StatReloader
 INFO 2025-08-15 16:14:35,072 autoreload 3716 3364 Watching for file changes with StatReloader
-INFO 2025-08-15 16:20:24,340 autoreload 24688 13764 Watching for file changes with StatReloader
-INFO 2025-08-15 16:25:55,048 autoreload 24688 13764 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\__init__.py changed, reloading.
-INFO 2025-08-15 16:25:56,974 autoreload 27360 27380 Watching for file changes with StatReloader
-INFO 2025-08-15 16:46:28,270 autoreload 27360 27380 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\__init__.py changed, reloading.
-INFO 2025-08-15 16:46:29,429 autoreload 16844 1524 Watching for file changes with StatReloader
-INFO 2025-08-15 16:55:22,967 autoreload 26968 4212 Watching for file changes with StatReloader
-INFO 2025-08-15 17:05:13,599 autoreload 26968 4212 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\settings.py changed, reloading.
-INFO 2025-08-15 17:05:13,688 autoreload 16844 1524 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\settings.py changed, reloading.
-INFO 2025-08-15 17:05:16,415 autoreload 5664 28148 Watching for file changes with StatReloader
-INFO 2025-08-15 17:05:16,665 autoreload 10008 27084 Watching for file changes with StatReloader
-INFO 2025-08-15 17:05:28,128 autoreload 5664 28148 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\settings.py changed, reloading.
-INFO 2025-08-15 17:05:28,133 autoreload 10008 27084 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\settings.py changed, reloading.
-INFO 2025-08-15 17:05:30,002 autoreload 1968 14920 Watching for file changes with StatReloader
-INFO 2025-08-15 17:05:30,005 autoreload 8924 22276 Watching for file changes with StatReloader
-INFO 2025-08-15 17:05:33,651 autoreload 8924 22276 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\settings.py changed, reloading.
-INFO 2025-08-15 17:05:33,670 autoreload 1968 14920 C:\Users\Ayesha Jahangir\Downloads\ims-backend\halal_inventory_system\settings.py changed, reloading.
-INFO 2025-08-15 17:05:35,015 autoreload 26892 27420 Watching for file changes with StatReloader
-INFO 2025-08-15 17:05:35,024 autoreload 28020 24540 Watching for file changes with StatReloader
+INFO 2025-08-15 16:20:28,284 basehttp 6656 27952 "GET / HTTP/1.1" 200 10209
+INFO 2025-08-15 16:20:28,442 basehttp 6656 4036 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3426
+INFO 2025-08-15 16:20:28,476 basehttp 6656 19360 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+INFO 2025-08-15 16:20:28,487 basehttp 6656 5772 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3796
+INFO 2025-08-15 16:20:28,490 basehttp 6656 4036 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1793
+INFO 2025-08-15 16:20:28,506 basehttp 6656 25540 "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1152
+INFO 2025-08-15 16:20:28,510 basehttp 6656 27952 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+INFO 2025-08-15 16:20:28,520 basehttp 6656 4036 "GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268
+INFO 2025-08-15 16:20:28,526 basehttp 6656 25540 "GET /static/rest_framework/js/load-ajax-form.js HTTP/1.1" 200 59
+INFO 2025-08-15 16:20:28,538 basehttp 6656 5772 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+INFO 2025-08-15 16:20:28,539 basehttp 6656 19360 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 39680
+INFO 2025-08-15 16:20:28,542 basehttp 6656 5772 "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+INFO 2025-08-15 16:20:28,561 basehttp 6656 1204 "GET /static/rest_framework/js/jquery-3.7.1.min.js HTTP/1.1" 200 87533
+WARNING 2025-08-15 16:20:28,768 log 6656 1204 Not Found: /favicon.ico
+WARNING 2025-08-15 16:20:28,768 basehttp 6656 1204 "GET /favicon.ico HTTP/1.1" 404 4281
+INFO 2025-08-15 16:44:58,442 basehttp 6656 22460 "GET / HTTP/1.1" 200 10209
+WARNING 2025-08-15 16:45:03,326 log 6656 22460 Not Found: /api/contact/send/
+WARNING 2025-08-15 16:45:03,327 basehttp 6656 22460 "GET /api/contact/send/ HTTP/1.1" 404 19666
+INFO 2025-08-15 16:45:09,329 basehttp 6656 22460 "GET /api HTTP/1.1" 301 0
+WARNING 2025-08-15 16:45:09,342 log 6656 5800 Unauthorized: /api/
+WARNING 2025-08-15 16:45:09,343 basehttp 6656 5800 "GET /api/ HTTP/1.1" 401 9935
+WARNING 2025-08-15 16:45:14,839 log 6656 5800 Unauthorized: /api/
+WARNING 2025-08-15 16:45:14,840 basehttp 6656 5800 "GET /api/ HTTP/1.1" 401 9935
+INFO 2025-08-15 16:45:16,634 basehttp 6656 5800 "GET / HTTP/1.1" 200 10209
+WARNING 2025-08-15 16:45:26,441 log 6656 5800 Unauthorized: /api/
+WARNING 2025-08-15 16:45:26,441 basehttp 6656 5800 "GET /api/ HTTP/1.1" 401 9935
+WARNING 2025-08-15 16:45:36,992 log 6656 5800 Not Found: /api/product
+WARNING 2025-08-15 16:45:36,992 basehttp 6656 5800 "GET /api/product HTTP/1.1" 404 19648
+INFO 2025-08-16 15:20:39,398 utils 15500 10476 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 15:21:01,386 utils 13772 12412 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 15:21:54,619 utils 6340 4104 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 15:22:48,773 utils 18284 18332 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 15:23:26,344 utils 30924 8760 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:06:21,685 utils 25248 30664 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:11:39,485 utils 19540 17256 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:12:08,224 utils 10112 27992 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:12:41,755 utils 6672 28636 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:13:07,460 utils 24020 16628 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:13:08,647 utils 24008 22700 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:13:09,173 autoreload 24008 22700 Watching for file changes with StatReloader
+INFO 2025-08-16 16:14:01,972 basehttp 24008 9944 "GET / HTTP/1.1" 200 134
+INFO 2025-08-16 16:14:01,979 basehttp 24008 16752 "GET /info/ HTTP/1.1" 200 274
+WARNING 2025-08-16 16:14:01,984 log 24008 8280 Unauthorized: /api/categories/
+WARNING 2025-08-16 16:14:01,985 basehttp 24008 8280 "GET /api/categories/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:14:01,987 log 24008 18868 Unauthorized: /api/suppliers/
+WARNING 2025-08-16 16:14:01,987 basehttp 24008 18868 "GET /api/suppliers/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:14:01,989 log 24008 6884 Unauthorized: /api/products/
+WARNING 2025-08-16 16:14:01,991 basehttp 24008 6884 "GET /api/products/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:14:01,994 log 24008 31028 Unauthorized: /api/supermarkets/
+WARNING 2025-08-16 16:14:01,994 basehttp 24008 31028 "GET /api/supermarkets/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:14:01,997 log 24008 29860 Unauthorized: /api/substores/
+WARNING 2025-08-16 16:14:01,997 basehttp 24008 29860 "GET /api/substores/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:14:02,000 log 24008 15372 Unauthorized: /api/excel-imports/
+WARNING 2025-08-16 16:14:02,000 basehttp 24008 15372 "GET /api/excel-imports/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:14:02,004 log 24008 20080 Unauthorized: /api/image-imports/
+WARNING 2025-08-16 16:14:02,005 basehttp 24008 20080 "GET /api/image-imports/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:14:02,182 log 24008 26372 Not Found: /api/pos-integration/
+WARNING 2025-08-16 16:14:02,183 basehttp 24008 26372 "GET /api/pos-integration/ HTTP/1.1" 404 28615
+WARNING 2025-08-16 16:14:02,194 log 24008 21508 Not Found: /api/dashboard/
+WARNING 2025-08-16 16:14:02,195 basehttp 24008 21508 "GET /api/dashboard/ HTTP/1.1" 404 28597
+WARNING 2025-08-16 16:14:02,199 log 24008 18556 Unauthorized: /api/stock-transactions/
+WARNING 2025-08-16 16:14:02,199 basehttp 24008 18556 "GET /api/stock-transactions/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:14:02,202 log 24008 20076 Unauthorized: /api/expiry-alerts/
+WARNING 2025-08-16 16:14:02,203 basehttp 24008 20076 "GET /api/expiry-alerts/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:14:02,205 log 24008 10404 Unauthorized: /api/product-tickets/
+WARNING 2025-08-16 16:14:02,205 basehttp 24008 10404 "GET /api/product-tickets/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:14:02,211 log 24008 27028 Bad Request: /api/auth/register/
+WARNING 2025-08-16 16:14:02,212 basehttp 24008 27028 "POST /api/auth/register/ HTTP/1.1" 400 48
+INFO 2025-08-16 16:15:10,073 autoreload 24008 22700 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\inventory\views.py changed, reloading.
+INFO 2025-08-16 16:15:11,031 utils 24196 4716 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:15:11,590 autoreload 24196 4716 Watching for file changes with StatReloader
+INFO 2025-08-16 16:15:19,110 basehttp 24196 31312 "GET / HTTP/1.1" 200 134
+INFO 2025-08-16 16:15:19,114 basehttp 24196 5640 "GET /info/ HTTP/1.1" 200 274
+WARNING 2025-08-16 16:15:19,117 log 24196 5240 Unauthorized: /api/categories/
+WARNING 2025-08-16 16:15:19,117 basehttp 24196 5240 "GET /api/categories/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:15:19,119 log 24196 18096 Unauthorized: /api/suppliers/
+WARNING 2025-08-16 16:15:19,119 basehttp 24196 18096 "GET /api/suppliers/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:15:19,121 log 24196 15200 Unauthorized: /api/products/
+WARNING 2025-08-16 16:15:19,121 basehttp 24196 15200 "GET /api/products/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:15:19,123 log 24196 31392 Unauthorized: /api/supermarkets/
+WARNING 2025-08-16 16:15:19,128 basehttp 24196 31392 "GET /api/supermarkets/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:15:19,131 log 24196 27340 Unauthorized: /api/substores/
+WARNING 2025-08-16 16:15:19,131 basehttp 24196 27340 "GET /api/substores/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:15:19,134 log 24196 24308 Unauthorized: /api/excel-imports/
+WARNING 2025-08-16 16:15:19,134 basehttp 24196 24308 "GET /api/excel-imports/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:15:19,137 log 24196 21576 Unauthorized: /api/image-imports/
+WARNING 2025-08-16 16:15:19,137 basehttp 24196 21576 "GET /api/image-imports/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:15:19,151 log 24196 4728 Not Found: /api/pos-integration/
+WARNING 2025-08-16 16:15:19,152 basehttp 24196 4728 "GET /api/pos-integration/ HTTP/1.1" 404 28615
+WARNING 2025-08-16 16:15:19,161 log 24196 4040 Not Found: /api/dashboard/
+WARNING 2025-08-16 16:15:19,162 basehttp 24196 4040 "GET /api/dashboard/ HTTP/1.1" 404 28597
+WARNING 2025-08-16 16:15:19,166 log 24196 23148 Unauthorized: /api/stock-transactions/
+WARNING 2025-08-16 16:15:19,167 basehttp 24196 23148 "GET /api/stock-transactions/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:15:19,170 log 24196 3868 Unauthorized: /api/expiry-alerts/
+WARNING 2025-08-16 16:15:19,170 basehttp 24196 3868 "GET /api/expiry-alerts/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:15:19,172 log 24196 15320 Unauthorized: /api/product-tickets/
+WARNING 2025-08-16 16:15:19,173 basehttp 24196 15320 "GET /api/product-tickets/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:15:19,177 log 24196 1236 Bad Request: /api/auth/register/
+WARNING 2025-08-16 16:15:19,178 basehttp 24196 1236 "POST /api/auth/register/ HTTP/1.1" 400 48
+INFO 2025-08-16 16:16:34,387 utils 29596 21888 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:18:07,775 utils 20908 21184 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:18:08,960 utils 10124 2588 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:18:09,474 autoreload 10124 2588 Watching for file changes with StatReloader
+INFO 2025-08-16 16:18:34,650 basehttp 10124 24052 "GET / HTTP/1.1" 200 134
+INFO 2025-08-16 16:18:34,655 basehttp 10124 11832 "GET /info/ HTTP/1.1" 200 274
+WARNING 2025-08-16 16:18:34,659 log 10124 7752 Unauthorized: /api/categories/
+WARNING 2025-08-16 16:18:34,660 basehttp 10124 7752 "GET /api/categories/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:18:34,662 log 10124 30864 Unauthorized: /api/suppliers/
+WARNING 2025-08-16 16:18:34,662 basehttp 10124 30864 "GET /api/suppliers/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:18:34,664 log 10124 26056 Unauthorized: /api/products/
+WARNING 2025-08-16 16:18:34,665 basehttp 10124 26056 "GET /api/products/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:18:34,667 log 10124 30468 Unauthorized: /api/supermarkets/
+WARNING 2025-08-16 16:18:34,668 basehttp 10124 30468 "GET /api/supermarkets/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:18:34,670 log 10124 28748 Unauthorized: /api/substores/
+WARNING 2025-08-16 16:18:34,671 basehttp 10124 28748 "GET /api/substores/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:18:34,674 log 10124 8584 Unauthorized: /api/excel-imports/
+WARNING 2025-08-16 16:18:34,674 basehttp 10124 8584 "GET /api/excel-imports/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:18:34,679 log 10124 27048 Unauthorized: /api/image-imports/
+WARNING 2025-08-16 16:18:34,679 basehttp 10124 27048 "GET /api/image-imports/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:18:34,693 log 10124 6584 Not Found: /api/pos-integration/
+WARNING 2025-08-16 16:18:34,694 basehttp 10124 6584 "GET /api/pos-integration/ HTTP/1.1" 404 28615
+WARNING 2025-08-16 16:18:34,703 log 10124 16952 Not Found: /api/dashboard/
+WARNING 2025-08-16 16:18:34,704 basehttp 10124 16952 "GET /api/dashboard/ HTTP/1.1" 404 28597
+WARNING 2025-08-16 16:18:34,706 log 10124 29668 Unauthorized: /api/stock-transactions/
+WARNING 2025-08-16 16:18:34,707 basehttp 10124 29668 "GET /api/stock-transactions/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:18:34,711 log 10124 8968 Unauthorized: /api/expiry-alerts/
+WARNING 2025-08-16 16:18:34,712 basehttp 10124 8968 "GET /api/expiry-alerts/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:18:34,715 log 10124 12460 Unauthorized: /api/product-tickets/
+WARNING 2025-08-16 16:18:34,715 basehttp 10124 12460 "GET /api/product-tickets/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:18:34,719 log 10124 9096 Bad Request: /api/auth/register/
+WARNING 2025-08-16 16:18:34,719 basehttp 10124 9096 "POST /api/auth/register/ HTTP/1.1" 400 48
+WARNING 2025-08-16 16:19:12,389 log 10124 20008 Not Found: /api/dashboard/
+WARNING 2025-08-16 16:19:12,390 basehttp 10124 20008 "GET /api/dashboard/ HTTP/1.1" 404 28597
+INFO 2025-08-16 16:19:12,615 basehttp 10124 20008 - Broken pipe from ('127.0.0.1', 55876)
+INFO 2025-08-16 16:19:42,096 basehttp 10124 23252 "GET / HTTP/1.1" 200 134
+INFO 2025-08-16 16:19:42,098 basehttp 10124 11712 "GET /info/ HTTP/1.1" 200 274
+WARNING 2025-08-16 16:19:42,101 log 10124 13704 Unauthorized: /api/categories/
+WARNING 2025-08-16 16:19:42,101 basehttp 10124 13704 "GET /api/categories/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:19:42,104 log 10124 11492 Unauthorized: /api/suppliers/
+WARNING 2025-08-16 16:19:42,104 basehttp 10124 11492 "GET /api/suppliers/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:19:42,107 log 10124 4432 Unauthorized: /api/products/
+WARNING 2025-08-16 16:19:42,107 basehttp 10124 4432 "GET /api/products/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:19:42,109 log 10124 18960 Unauthorized: /api/supermarkets/
+WARNING 2025-08-16 16:19:42,109 basehttp 10124 18960 "GET /api/supermarkets/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:19:42,112 log 10124 22520 Unauthorized: /api/substores/
+WARNING 2025-08-16 16:19:42,112 basehttp 10124 22520 "GET /api/substores/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:19:42,115 log 10124 15012 Unauthorized: /api/excel-imports/
+WARNING 2025-08-16 16:19:42,116 basehttp 10124 15012 "GET /api/excel-imports/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:19:42,119 log 10124 28112 Unauthorized: /api/image-imports/
+WARNING 2025-08-16 16:19:42,120 basehttp 10124 28112 "GET /api/image-imports/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:19:42,124 log 10124 9584 Unauthorized: /api/pos-integration/products_sync/
+WARNING 2025-08-16 16:19:42,124 basehttp 10124 9584 "GET /api/pos-integration/products_sync/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:19:42,128 log 10124 12424 Unauthorized: /api/dashboard/stats/
+WARNING 2025-08-16 16:19:42,128 basehttp 10124 12424 "GET /api/dashboard/stats/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:19:42,130 log 10124 27256 Unauthorized: /api/stock-transactions/
+WARNING 2025-08-16 16:19:42,131 basehttp 10124 27256 "GET /api/stock-transactions/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:19:42,133 log 10124 28092 Unauthorized: /api/expiry-alerts/
+WARNING 2025-08-16 16:19:42,133 basehttp 10124 28092 "GET /api/expiry-alerts/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:19:42,136 log 10124 25876 Unauthorized: /api/product-tickets/
+WARNING 2025-08-16 16:19:42,137 basehttp 10124 25876 "GET /api/product-tickets/ HTTP/1.1" 401 58
+WARNING 2025-08-16 16:19:42,142 log 10124 5600 Bad Request: /api/auth/register/
+WARNING 2025-08-16 16:19:42,142 basehttp 10124 5600 "POST /api/auth/register/ HTTP/1.1" 400 48
