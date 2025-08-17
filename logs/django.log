@@ -663,3 +663,7 @@ INFO 2025-08-17 15:42:07,009 basehttp 27108 25256 "POST /api/auth/logout/ HTTP/1
 INFO 2025-08-17 15:42:09,130 basehttp 27108 25256 "POST /api/auth/login/ HTTP/1.1" 200 991
 INFO 2025-08-17 15:42:09,154 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
 INFO 2025-08-17 15:42:09,170 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:57:36,637 basehttp 27108 4176 "POST /api/auth/logout/ HTTP/1.1" 200 31
+INFO 2025-08-17 15:57:38,515 basehttp 27108 4176 "POST /api/auth/login/ HTTP/1.1" 200 991
+INFO 2025-08-17 15:58:47,046 basehttp 27108 4176 "POST /api/auth/logout/ HTTP/1.1" 200 31
+INFO 2025-08-17 15:58:50,125 basehttp 27108 4176 "POST /api/auth/login/ HTTP/1.1" 200 991
