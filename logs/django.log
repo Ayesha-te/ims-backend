@@ -667,3 +667,33 @@ INFO 2025-08-17 15:57:36,637 basehttp 27108 4176 "POST /api/auth/logout/ HTTP/1.
 INFO 2025-08-17 15:57:38,515 basehttp 27108 4176 "POST /api/auth/login/ HTTP/1.1" 200 991
 INFO 2025-08-17 15:58:47,046 basehttp 27108 4176 "POST /api/auth/logout/ HTTP/1.1" 200 31
 INFO 2025-08-17 15:58:50,125 basehttp 27108 4176 "POST /api/auth/login/ HTTP/1.1" 200 991
+INFO 2025-08-17 16:13:13,750 basehttp 27108 9964 "OPTIONS /auth/login HTTP/1.1" 200 0
+ERROR 2025-08-17 16:13:13,816 log 27108 9964 Internal Server Error: /auth/login
+Traceback (most recent call last):
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+    ...<9 lines>...
+    )
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to localhost:8000/auth/login/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+ERROR 2025-08-17 16:13:13,818 basehttp 27108 9964 "POST /auth/login HTTP/1.1" 500 78716
+INFO 2025-08-17 16:13:55,158 basehttp 27108 8372 "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+WARNING 2025-08-17 16:13:55,160 log 27108 8372 Bad Request: /api/auth/login/
+WARNING 2025-08-17 16:13:55,161 basehttp 27108 8372 "POST /api/auth/login/ HTTP/1.1" 400 43
+WARNING 2025-08-17 16:13:57,057 log 27108 8372 Bad Request: /api/auth/login/
+WARNING 2025-08-17 16:13:57,058 basehttp 27108 8372 "POST /api/auth/login/ HTTP/1.1" 400 43
+WARNING 2025-08-17 16:14:57,677 log 27108 8372 Bad Request: /api/auth/login/
+WARNING 2025-08-17 16:14:57,677 basehttp 27108 8372 "POST /api/auth/login/ HTTP/1.1" 400 43
+INFO 2025-08-17 16:16:20,369 basehttp 27108 8372 "OPTIONS /api/auth/register/ HTTP/1.1" 200 0
+WARNING 2025-08-17 16:16:20,374 log 27108 8372 Bad Request: /api/auth/register/
+WARNING 2025-08-17 16:16:20,375 basehttp 27108 8372 "POST /api/auth/register/ HTTP/1.1" 400 62
+WARNING 2025-08-17 16:18:11,948 log 27108 8372 Bad Request: /api/auth/login/
+WARNING 2025-08-17 16:18:11,948 basehttp 27108 8372 "POST /api/auth/login/ HTTP/1.1" 400 43
+WARNING 2025-08-17 16:18:13,489 log 27108 8372 Bad Request: /api/auth/login/
+WARNING 2025-08-17 16:18:13,489 basehttp 27108 8372 "POST /api/auth/login/ HTTP/1.1" 400 43
