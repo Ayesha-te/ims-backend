@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status, serializers
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.shortcuts import get_object_or_404
 from django.db.models import Q, Sum, Count, F
 from django.db import models
@@ -9,15 +9,14 @@ from django.utils import timezone
 from datetime import timedelta, date
 from .models import (
     Category, Supplier, Product, StockTransaction, 
-    ExpiryAlert, ProductTicket, Supermarket, Substore, ExcelImport, ImageImport
+    ExpiryAlert, ProductTicket, Supermarket, Substore
 )
 from .serializers import (
     CategorySerializer, SupplierSerializer, ProductSerializer,
     ProductCreateSerializer, StockTransactionSerializer, ExpiryAlertSerializer,
     ProductTicketSerializer, BarcodeSearchSerializer, StockUpdateSerializer,
     DashboardStatsSerializer, SupermarketSerializer, SubstoreSerializer,
-    SubstoreCreateSerializer, ExcelImportSerializer, ExcelImportCreateSerializer,
-    ImageImportSerializer, ImageImportCreateSerializer
+    SubstoreCreateSerializer
 )
 import json
 
@@ -681,6 +680,38 @@ class DashboardViewSet(viewsets.ViewSet):
             },
             'total_unread': expiring_alerts.count() + expired_alerts.count()
         })
+
+
+class SupermarketViewSet(viewsets.ModelViewSet):
+    """ViewSet for managing supermarkets"""
+    permission_classes = [IsAuthenticated]
+    serializer_class = SupermarketSerializer
+    
+    def get_queryset(self):
+        # Only show the current user's supermarket
+        try:
+            supermarket = Supermarket.objects.get(user=self.request.user)
+            return Supermarket.objects.filter(id=supermarket.id)
+        except Supermarket.DoesNotExist:
+            if self.request.user.is_superuser:
+                return Supermarket.objects.all()
+            return Supermarket.objects.none()
+    
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny])
+    def register(self, request):
+        """Register a new supermarket - same as auth_views.register_supermarket"""
+        from .auth_views import register_supermarket
+        return register_supermarket(request)
+    
+    @action(detail=False, methods=['get'])
+    def me(self, request):
+        """Get current user's supermarket details"""
+        try:
+            supermarket = Supermarket.objects.get(user=request.user)
+            return Response(SupermarketSerializer(supermarket).data)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'Supermarket profile not found'}, 
+                          status=status.HTTP_404_NOT_FOUND)
 
 
 class SubstoreViewSet(viewsets.ModelViewSet):

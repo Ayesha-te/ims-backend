@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.authtoken.views import obtain_auth_token
+from inventory.auth_views import register_supermarket, login_supermarket
 
 # Customize admin site header and title
 admin.site.site_header = "Halal Inventory Management System"
@@ -29,6 +30,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('inventory.urls')),
     path('auth/token/', obtain_auth_token, name='api_token_auth'),
+    # Direct fallback auth endpoints for compatibility
+    path('auth/register/', register_supermarket, name='auth_register_fallback'),
+    path('auth/login/', login_supermarket, name='auth_login_fallback'),
 ]
 
 # Serve media files during development

@@ -227,3 +227,439 @@ WARNING 2025-08-16 16:19:42,136 log 10124 25876 Unauthorized: /api/product-ticke
 WARNING 2025-08-16 16:19:42,137 basehttp 10124 25876 "GET /api/product-tickets/ HTTP/1.1" 401 58
 WARNING 2025-08-16 16:19:42,142 log 10124 5600 Bad Request: /api/auth/register/
 WARNING 2025-08-16 16:19:42,142 basehttp 10124 5600 "POST /api/auth/register/ HTTP/1.1" 400 48
+INFO 2025-08-16 16:50:27,427 utils 1980 27520 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:50:44,972 utils 12624 31348 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:52:21,544 utils 25528 9416 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:52:38,887 utils 29372 13988 NumExpr defaulting to 8 threads.
+INFO 2025-08-16 16:52:39,466 wsgi 29372 13988 WSGI application started successfully
+INFO 2025-08-16 16:55:07,565 wsgi 18036 5572 WSGI application started successfully
+INFO 2025-08-16 16:56:53,037 wsgi 30148 13640 WSGI application started successfully
+INFO 2025-08-16 16:58:15,282 wsgi 5192 21840 Starting WSGI application...
+INFO 2025-08-16 16:58:15,282 wsgi 5192 21840 Python version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+INFO 2025-08-16 16:58:15,283 wsgi 5192 21840 Python path: ['C:\\Users\\Ayesha Jahangir\\Downloads\\New folder\\ims-backend', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\python313.zip', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\DLLs', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313', 'C:\\Users\\Ayesha Jahangir\\AppData\\Roaming\\Python\\Python313\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32\\lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\Pythonwin']
+INFO 2025-08-16 16:58:15,291 wsgi 5192 21840 WSGI application started successfully
+INFO 2025-08-16 16:59:23,042 wsgi 22908 24632 Starting WSGI application...
+INFO 2025-08-16 16:59:23,042 wsgi 22908 24632 Python version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+INFO 2025-08-16 16:59:23,042 wsgi 22908 24632 Python path: ['C:\\Users\\Ayesha Jahangir\\Downloads\\New folder\\ims-backend', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\python313.zip', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\DLLs', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313', 'C:\\Users\\Ayesha Jahangir\\AppData\\Roaming\\Python\\Python313\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32\\lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\Pythonwin']
+INFO 2025-08-16 16:59:23,052 wsgi 22908 24632 WSGI application started successfully
+INFO 2025-08-17 15:03:41,583 autoreload 13568 1360 Watching for file changes with StatReloader
+INFO 2025-08-17 15:03:41,817 wsgi 13568 13356 Starting WSGI application...
+INFO 2025-08-17 15:03:41,817 wsgi 13568 13356 Python version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+INFO 2025-08-17 15:03:41,817 wsgi 13568 13356 Python path: ['C:\\Users\\Ayesha Jahangir\\Downloads\\IMS\\ims-backend', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\python313.zip', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\DLLs', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313', 'C:\\Users\\Ayesha Jahangir\\AppData\\Roaming\\Python\\Python313\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32\\lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\Pythonwin']
+INFO 2025-08-17 15:03:41,821 wsgi 13568 13356 WSGI application started successfully
+INFO 2025-08-17 15:05:11,463 basehttp 13568 10852 "POST /api/auth/register/ HTTP/1.1" 201 925
+INFO 2025-08-17 15:05:11,745 basehttp 13568 10852 - Broken pipe from ('127.0.0.1', 54851)
+INFO 2025-08-17 15:06:03,995 autoreload 13568 1360 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\urls.py changed, reloading.
+INFO 2025-08-17 15:06:04,879 autoreload 20968 26744 Watching for file changes with StatReloader
+INFO 2025-08-17 15:06:05,003 wsgi 20968 24452 Starting WSGI application...
+INFO 2025-08-17 15:06:05,004 wsgi 20968 24452 Python version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+INFO 2025-08-17 15:06:05,004 wsgi 20968 24452 Python path: ['C:\\Users\\Ayesha Jahangir\\Downloads\\IMS\\ims-backend', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\python313.zip', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\DLLs', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313', 'C:\\Users\\Ayesha Jahangir\\AppData\\Roaming\\Python\\Python313\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32\\lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\Pythonwin']
+INFO 2025-08-17 15:06:05,007 wsgi 20968 24452 WSGI application started successfully
+INFO 2025-08-17 15:06:10,527 basehttp 20968 8300 "POST /auth/api/auth/register/ HTTP/1.1" 201 932
+INFO 2025-08-17 15:06:10,683 basehttp 20968 8300 - Broken pipe from ('127.0.0.1', 55543)
+WARNING 2025-08-17 15:06:26,614 log 20968 23940 Not Found: /auth/register/
+WARNING 2025-08-17 15:06:26,615 basehttp 20968 23940 "POST /auth/register/ HTTP/1.1" 404 6109
+INFO 2025-08-17 15:06:26,737 basehttp 20968 23940 - Broken pipe from ('127.0.0.1', 55731)
+INFO 2025-08-17 15:06:38,105 autoreload 20968 26744 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\urls.py changed, reloading.
+INFO 2025-08-17 15:06:39,083 autoreload 28008 24908 Watching for file changes with StatReloader
+INFO 2025-08-17 15:06:39,237 wsgi 28008 160 Starting WSGI application...
+INFO 2025-08-17 15:06:39,237 wsgi 28008 160 Python version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+INFO 2025-08-17 15:06:39,237 wsgi 28008 160 Python path: ['C:\\Users\\Ayesha Jahangir\\Downloads\\IMS\\ims-backend', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\python313.zip', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\DLLs', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313', 'C:\\Users\\Ayesha Jahangir\\AppData\\Roaming\\Python\\Python313\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32\\lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\Pythonwin']
+INFO 2025-08-17 15:06:39,242 wsgi 28008 160 WSGI application started successfully
+INFO 2025-08-17 15:06:43,670 autoreload 28008 24908 C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\halal_inventory_system\urls.py changed, reloading.
+INFO 2025-08-17 15:06:44,788 autoreload 27108 7888 Watching for file changes with StatReloader
+INFO 2025-08-17 15:06:44,909 wsgi 27108 920 Starting WSGI application...
+INFO 2025-08-17 15:06:44,909 wsgi 27108 920 Python version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+INFO 2025-08-17 15:06:44,910 wsgi 27108 920 Python path: ['C:\\Users\\Ayesha Jahangir\\Downloads\\IMS\\ims-backend', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\python313.zip', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\DLLs', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313', 'C:\\Users\\Ayesha Jahangir\\AppData\\Roaming\\Python\\Python313\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32\\lib', 'C:\\Users\\Ayesha Jahangir\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\Pythonwin']
+INFO 2025-08-17 15:06:44,912 wsgi 27108 920 WSGI application started successfully
+INFO 2025-08-17 15:24:44,596 basehttp 27108 11188 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:24:44,599 basehttp 27108 11188 "GET /health/ HTTP/1.1" 200 134
+WARNING 2025-08-17 15:24:44,600 log 27108 16140 Unauthorized: /api/products/
+WARNING 2025-08-17 15:24:44,600 log 27108 25256 Unauthorized: /api/substores/
+WARNING 2025-08-17 15:24:44,601 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 401 58
+WARNING 2025-08-17 15:24:44,602 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 401 58
+WARNING 2025-08-17 15:24:44,605 log 27108 16140 Unauthorized: /api/products/
+WARNING 2025-08-17 15:24:44,606 log 27108 25256 Unauthorized: /api/substores/
+WARNING 2025-08-17 15:24:44,607 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 401 58
+WARNING 2025-08-17 15:24:44,607 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 401 58
+INFO 2025-08-17 15:24:59,350 basehttp 27108 25256 "OPTIONS /api/supermarkets/register/ HTTP/1.1" 200 0
+ERROR 2025-08-17 15:24:59,539 log 27108 25256 Internal Server Error: /api/supermarkets/register/
+Traceback (most recent call last):
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Ayesha Jahangir\Downloads\IMS\ims-backend\inventory\views.py", line 704, in register
+    return register_supermarket(request)
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    request = self.initialize_request(request, *args, **kwargs)
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 391, in initialize_request
+    return Request(
+        request,
+    ...<3 lines>...
+        parser_context=parser_context
+    )
+  File "C:\Users\Ayesha Jahangir\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\request.py", line 154, in __init__
+    assert isinstance(request, HttpRequest), (
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: The `request` argument must be an instance of `django.http.HttpRequest`, not `rest_framework.request.Request`.
+ERROR 2025-08-17 15:24:59,542 basehttp 27108 25256 "POST /api/supermarkets/register/ HTTP/1.1" 500 24696
+INFO 2025-08-17 15:24:59,545 basehttp 27108 25256 "OPTIONS /api/auth/register/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:25:00,148 basehttp 27108 25256 "POST /api/auth/register/ HTTP/1.1" 201 1010
+INFO 2025-08-17 15:25:00,201 basehttp 27108 25256 "OPTIONS /api/dashboard/stats/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:25:00,203 basehttp 27108 16140 "OPTIONS /api/substores/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:25:00,204 basehttp 27108 11188 "OPTIONS /api/dashboard/stats/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:25:00,206 basehttp 27108 24512 "OPTIONS /api/substores/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:25:00,212 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:00,220 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:00,230 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:00,234 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:30,558 basehttp 27108 16140 "OPTIONS /health/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:25:30,560 basehttp 27108 24512 "OPTIONS /health/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:25:30,562 basehttp 27108 25256 "OPTIONS /api/products/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:25:30,562 basehttp 27108 11188 "OPTIONS /api/products/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:25:30,570 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:30,571 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:30,571 basehttp 27108 11188 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:30,580 basehttp 27108 11188 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:30,580 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:30,580 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:30,602 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:30,609 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:30,616 basehttp 27108 15472 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:30,629 basehttp 27108 15472 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:33,557 basehttp 27108 15472 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:33,562 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:33,565 basehttp 27108 11188 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:33,567 basehttp 27108 15472 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:33,571 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:33,573 basehttp 27108 24512 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:33,584 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:33,592 basehttp 27108 24512 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:33,604 basehttp 27108 24512 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:33,606 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:45,772 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:45,781 basehttp 27108 24512 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:45,784 basehttp 27108 11188 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:45,784 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:45,794 basehttp 27108 24512 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:45,808 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:45,834 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:45,845 basehttp 27108 24512 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:45,857 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:45,883 basehttp 27108 24512 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:48,272 basehttp 27108 24512 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:48,280 basehttp 27108 15472 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:48,286 basehttp 27108 11188 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:48,286 basehttp 27108 24512 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:48,298 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:48,298 basehttp 27108 15472 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:48,305 basehttp 27108 11188 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:48,312 basehttp 27108 24512 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:48,322 basehttp 27108 24512 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:48,328 basehttp 27108 11188 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:49,183 basehttp 27108 11188 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:49,187 basehttp 27108 24512 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:49,191 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:49,192 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:49,201 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:49,213 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:49,214 basehttp 27108 24512 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:49,221 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:49,223 basehttp 27108 16140 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:49,235 basehttp 27108 16140 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:50,076 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:50,082 basehttp 27108 24512 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:50,087 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:50,089 basehttp 27108 24512 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:50,093 basehttp 27108 15472 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:50,104 basehttp 27108 15472 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:50,111 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:50,118 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:50,128 basehttp 27108 24512 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:50,139 basehttp 27108 24512 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:50,776 basehttp 27108 24512 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:50,783 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:50,786 basehttp 27108 24512 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:50,791 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:50,793 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:50,800 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:50,806 basehttp 27108 24512 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:50,813 basehttp 27108 24512 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:50,829 basehttp 27108 15472 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:50,839 basehttp 27108 15472 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:51,490 basehttp 27108 15472 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:51,500 basehttp 27108 24512 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:51,501 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:51,503 basehttp 27108 15472 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:51,508 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:51,513 basehttp 27108 11188 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:51,519 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:51,528 basehttp 27108 16140 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:51,541 basehttp 27108 15472 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:51,553 basehttp 27108 16140 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:52,140 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:52,152 basehttp 27108 15472 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,154 basehttp 27108 11188 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,158 basehttp 27108 24512 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:52,168 basehttp 27108 15472 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,168 basehttp 27108 11188 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,185 basehttp 27108 15472 - Broken pipe from ('127.0.0.1', 52993)
+INFO 2025-08-17 15:25:52,212 basehttp 27108 11188 - Broken pipe from ('127.0.0.1', 52420)
+INFO 2025-08-17 15:25:52,212 basehttp 27108 24512 - Broken pipe from ('127.0.0.1', 52602)
+INFO 2025-08-17 15:25:52,295 basehttp 27108 25256 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:52,301 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,309 basehttp 27108 28332 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,310 basehttp 27108 25256 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:52,317 basehttp 27108 28332 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,326 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,332 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:52,343 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,346 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:52,349 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,511 basehttp 27108 29468 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:52,519 basehttp 27108 28332 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,519 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,525 basehttp 27108 29468 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:52,529 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,545 basehttp 27108 28332 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,549 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:52,552 basehttp 27108 28332 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,560 basehttp 27108 28332 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,568 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:52,832 basehttp 27108 28332 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,833 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,844 basehttp 27108 28332 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,845 basehttp 27108 25256 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:52,846 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,850 basehttp 27108 30836 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:52,860 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,865 basehttp 27108 30836 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:52,865 basehttp 27108 16140 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:52,878 basehttp 27108 16140 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:56,304 basehttp 27108 30836 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:56,305 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:56,305 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:56,312 basehttp 27108 29468 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:25:56,317 basehttp 27108 30836 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:56,319 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:56,344 basehttp 27108 30836 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:56,354 basehttp 27108 16140 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:25:56,355 basehttp 27108 30836 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:25:56,370 basehttp 27108 16140 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:26:19,567 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:26:19,568 basehttp 27108 30836 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:26:19,569 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:26:19,572 basehttp 27108 25256 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:26:19,575 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:26:19,583 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:26:19,593 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:26:19,601 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:26:19,602 basehttp 27108 29468 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:26:19,614 basehttp 27108 29468 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:27:18,659 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:27:18,670 basehttp 27108 29468 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:27:18,681 basehttp 27108 29468 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:27:18,685 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:27:30,481 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:27:30,481 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:27:30,491 basehttp 27108 29468 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:27:30,491 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:02,561 basehttp 27108 25256 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:28:02,567 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:02,567 basehttp 27108 29468 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:02,568 basehttp 27108 25256 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:28:02,575 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:02,577 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:02,596 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:02,604 basehttp 27108 29468 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:28:02,604 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:02,619 basehttp 27108 16140 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:28:16,627 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:16,629 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:16,636 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:16,638 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:47,563 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:28:47,569 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:47,569 basehttp 27108 29468 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:47,570 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:28:47,578 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:47,580 basehttp 27108 29468 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:47,599 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:47,607 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:28:47,607 basehttp 27108 29468 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:28:47,618 basehttp 27108 29468 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:29:00,456 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:29:00,456 basehttp 27108 29468 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:29:00,464 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:29:00,480 basehttp 27108 29468 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:29:27,558 basehttp 27108 29468 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:29:27,566 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:29:27,566 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:29:27,570 basehttp 27108 29468 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:29:27,578 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:29:27,578 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:29:27,601 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:29:27,614 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:29:27,624 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:29:27,642 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:30:02,156 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:02,163 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:02,167 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:02,173 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:33,554 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:30:33,557 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:33,561 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:33,562 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:30:33,569 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:33,588 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:33,593 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:33,605 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:33,606 basehttp 27108 29468 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:30:33,619 basehttp 27108 29468 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:30:51,895 basehttp 27108 29468 "OPTIONS /api/auth/logout/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:30:51,905 basehttp 27108 29468 "POST /api/auth/logout/ HTTP/1.1" 200 31
+INFO 2025-08-17 15:30:53,813 basehttp 27108 29468 "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:30:54,097 basehttp 27108 29468 "POST /api/auth/login/ HTTP/1.1" 200 991
+INFO 2025-08-17 15:30:54,118 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:54,126 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:54,132 basehttp 27108 29468 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:30:54,142 basehttp 27108 29468 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:30:56,657 basehttp 27108 29468 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:56,659 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:56,668 basehttp 27108 29468 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:30:56,668 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:34:03,990 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:34:03,998 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:34:03,998 basehttp 27108 29468 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:34:04,006 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:34:04,014 basehttp 27108 29468 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:34:04,014 basehttp 27108 23820 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:34:04,062 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:34:04,069 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:34:04,076 basehttp 27108 23820 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:34:04,093 basehttp 27108 23820 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:34:09,291 basehttp 27108 23820 "OPTIONS /api/excel-imports/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:34:09,294 basehttp 27108 25256 "OPTIONS /api/image-imports/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:34:09,294 basehttp 27108 29468 "OPTIONS /api/excel-imports/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:34:09,294 basehttp 27108 16140 "OPTIONS /api/image-imports/ HTTP/1.1" 200 0
+WARNING 2025-08-17 15:34:09,309 log 27108 23820 Not Found: /api/excel-imports/
+WARNING 2025-08-17 15:34:09,310 basehttp 27108 23820 "GET /api/excel-imports/ HTTP/1.1" 404 25467
+WARNING 2025-08-17 15:34:09,314 log 27108 16140 Not Found: /api/image-imports/
+WARNING 2025-08-17 15:34:09,317 basehttp 27108 16140 "GET /api/image-imports/ HTTP/1.1" 404 25467
+WARNING 2025-08-17 15:34:09,329 log 27108 23820 Not Found: /api/excel-imports/
+WARNING 2025-08-17 15:34:09,330 basehttp 27108 23820 "GET /api/excel-imports/ HTTP/1.1" 404 25467
+WARNING 2025-08-17 15:34:09,336 log 27108 29468 Not Found: /api/image-imports/
+WARNING 2025-08-17 15:34:09,337 basehttp 27108 29468 "GET /api/image-imports/ HTTP/1.1" 404 25467
+INFO 2025-08-17 15:34:50,221 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:34:50,226 basehttp 27108 29468 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:35:48,564 basehttp 27108 29468 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:35:48,569 basehttp 27108 23820 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:35:48,573 basehttp 27108 25256 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:35:48,578 basehttp 27108 23820 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:35:48,583 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:35:48,589 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:35:48,624 basehttp 27108 16140 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:35:48,644 basehttp 27108 16140 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:36:10,636 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:36:10,640 basehttp 27108 23820 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:36:10,646 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:36:10,654 basehttp 27108 23820 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:36:43,554 basehttp 27108 23820 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:36:43,558 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:36:43,558 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:36:43,564 basehttp 27108 23820 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:36:43,571 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:36:43,573 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:36:43,597 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:36:43,612 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:37:14,191 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:37:14,191 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:37:14,200 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:37:14,200 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:37:18,929 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:37:18,935 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:37:53,564 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:37:53,567 basehttp 27108 23820 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:37:53,570 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:37:53,577 basehttp 27108 16140 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:37:53,582 basehttp 27108 23820 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:37:53,583 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:37:53,603 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:37:53,615 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:38:03,041 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:38:03,048 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:38:36,555 basehttp 27108 25256 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:38:36,556 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:38:36,559 basehttp 27108 25256 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:38:36,561 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:38:36,572 basehttp 27108 23820 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:38:36,577 basehttp 27108 23820 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:38:36,601 basehttp 27108 23820 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:38:36,613 basehttp 27108 23820 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+WARNING 2025-08-17 15:38:48,719 log 27108 23820 Not Found: /api/excel-imports/
+WARNING 2025-08-17 15:38:48,722 log 27108 16140 Not Found: /api/image-imports/
+WARNING 2025-08-17 15:38:48,722 basehttp 27108 23820 "GET /api/excel-imports/ HTTP/1.1" 404 25467
+WARNING 2025-08-17 15:38:48,723 basehttp 27108 16140 "GET /api/image-imports/ HTTP/1.1" 404 25467
+WARNING 2025-08-17 15:38:48,735 log 27108 25256 Not Found: /api/excel-imports/
+WARNING 2025-08-17 15:38:48,739 log 27108 16140 Not Found: /api/image-imports/
+WARNING 2025-08-17 15:38:48,739 basehttp 27108 25256 "GET /api/excel-imports/ HTTP/1.1" 404 25467
+WARNING 2025-08-17 15:38:48,740 basehttp 27108 16140 "GET /api/image-imports/ HTTP/1.1" 404 25467
+INFO 2025-08-17 15:38:49,840 basehttp 27108 25256 "OPTIONS /api/pos-integration/store_locations/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:38:49,840 basehttp 27108 16140 "OPTIONS /api/pos-integration/store_locations/ HTTP/1.1" 200 0
+INFO 2025-08-17 15:38:49,846 basehttp 27108 16140 "GET /api/pos-integration/store_locations/ HTTP/1.1" 200 182
+INFO 2025-08-17 15:38:49,851 basehttp 27108 16140 "GET /api/pos-integration/store_locations/ HTTP/1.1" 200 182
+INFO 2025-08-17 15:39:17,386 basehttp 27108 16140 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:39:17,400 basehttp 27108 16140 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:39:28,240 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:39:28,247 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:39:28,247 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:39:28,255 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:39:35,996 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:39:36,004 basehttp 27108 25256 "GET /api/substores/ HTTP/1.1" 200 52
+WARNING 2025-08-17 15:40:01,336 log 27108 25256 Not Found: /api/excel-imports/
+WARNING 2025-08-17 15:40:01,339 log 27108 16140 Not Found: /api/image-imports/
+WARNING 2025-08-17 15:40:01,340 basehttp 27108 25256 "GET /api/excel-imports/ HTTP/1.1" 404 25467
+WARNING 2025-08-17 15:40:01,340 basehttp 27108 16140 "GET /api/image-imports/ HTTP/1.1" 404 25467
+WARNING 2025-08-17 15:40:01,354 log 27108 16140 Not Found: /api/image-imports/
+WARNING 2025-08-17 15:40:01,357 log 27108 25256 Not Found: /api/excel-imports/
+WARNING 2025-08-17 15:40:01,358 basehttp 27108 16140 "GET /api/image-imports/ HTTP/1.1" 404 25467
+WARNING 2025-08-17 15:40:01,358 basehttp 27108 25256 "GET /api/excel-imports/ HTTP/1.1" 404 25467
+INFO 2025-08-17 15:40:05,681 basehttp 27108 25256 "GET /api/pos-integration/store_locations/ HTTP/1.1" 200 182
+INFO 2025-08-17 15:40:05,686 basehttp 27108 25256 "GET /api/pos-integration/store_locations/ HTTP/1.1" 200 182
+INFO 2025-08-17 15:41:22,555 basehttp 27108 16140 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:41:22,556 basehttp 27108 25256 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:41:22,556 basehttp 27108 23820 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:41:22,574 basehttp 27108 23820 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:41:22,584 basehttp 27108 23820 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:42:05,566 basehttp 27108 23820 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:42:05,568 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:42:05,574 basehttp 27108 23820 "GET /health/ HTTP/1.1" 200 134
+INFO 2025-08-17 15:42:05,581 basehttp 27108 25256 "GET /api/products/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:42:05,585 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:42:05,600 basehttp 27108 16140 "GET /api/substores/ HTTP/1.1" 200 52
+INFO 2025-08-17 15:42:05,607 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:42:05,620 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:42:07,009 basehttp 27108 25256 "POST /api/auth/logout/ HTTP/1.1" 200 31
+INFO 2025-08-17 15:42:09,130 basehttp 27108 25256 "POST /api/auth/login/ HTTP/1.1" 200 991
+INFO 2025-08-17 15:42:09,154 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
+INFO 2025-08-17 15:42:09,170 basehttp 27108 25256 "GET /api/dashboard/stats/ HTTP/1.1" 200 269
