@@ -291,6 +291,134 @@ class ProductViewSet(viewsets.ModelViewSet):
         
         serializer = ProductTicketSerializer(ticket)
         return Response(serializer.data)
+    
+    @action(detail=False, methods=['post'])
+    def import_excel(self, request):
+        """Import products from Excel file"""
+        if 'file' not in request.FILES:
+            return Response({'error': 'No file provided'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        excel_file = request.FILES['file']
+        
+        # Validate file type
+        if not excel_file.name.endswith(('.xlsx', '.xls')):
+            return Response({'error': 'Invalid file type. Please upload an Excel file (.xlsx or .xls)'}, 
+                          status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            import openpyxl
+            from openpyxl import load_workbook
+            
+            # Get current supermarket
+            try:
+                supermarket = Supermarket.objects.get(user=request.user)
+            except Supermarket.DoesNotExist:
+                return Response({'error': 'You must be registered as a supermarket'}, 
+                              status=status.HTTP_400_BAD_REQUEST)
+            
+            # Load workbook
+            workbook = load_workbook(excel_file)
+            worksheet = workbook.active
+            
+            imported_products = []
+            errors = []
+            
+            # Expected columns: Name, SKU, Category, Supplier, Price, Current Stock, Minimum Stock, Expiry Date, Description
+            headers = [cell.value for cell in worksheet[1]]
+            
+            for row_num, row in enumerate(worksheet.iter_rows(min_row=2, values_only=True), start=2):
+                try:
+                    if not any(row):  # Skip empty rows
+                        continue
+                    
+                    # Map row data to product fields
+                    product_data = {}
+                    for i, header in enumerate(headers):
+                        if i < len(row) and header:
+                            header_lower = header.lower().strip()
+                            if header_lower in ['name', 'product name']:
+                                product_data['name'] = row[i]
+                            elif header_lower in ['sku', 'product code']:
+                                product_data['sku'] = row[i]
+                            elif header_lower in ['category']:
+                                product_data['category_name'] = row[i]
+                            elif header_lower in ['supplier']:
+                                product_data['supplier_name'] = row[i]
+                            elif header_lower in ['price']:
+                                product_data['price'] = float(row[i]) if row[i] else 0
+                            elif header_lower in ['current stock', 'stock']:
+                                product_data['current_stock'] = int(row[i]) if row[i] else 0
+                            elif header_lower in ['minimum stock', 'min stock']:
+                                product_data['minimum_stock'] = int(row[i]) if row[i] else 0
+                            elif header_lower in ['expiry date', 'expiry']:
+                                if row[i]:
+                                    from datetime import datetime
+                                    if isinstance(row[i], datetime):
+                                        product_data['expiry_date'] = row[i].date()
+                                    else:
+                                        product_data['expiry_date'] = datetime.strptime(str(row[i]), '%Y-%m-%d').date()
+                            elif header_lower in ['description']:
+                                product_data['description'] = row[i]
+                    
+                    # Validate required fields
+                    if not product_data.get('name'):
+                        errors.append(f"Row {row_num}: Product name is required")
+                        continue
+                    
+                    # Get or create category
+                    category = None
+                    if product_data.get('category_name'):
+                        category, created = Category.objects.get_or_create(
+                            name=product_data['category_name'],
+                            defaults={'description': f'Auto-created from Excel import'}
+                        )
+                    
+                    # Get or create supplier
+                    supplier = None
+                    if product_data.get('supplier_name'):
+                        supplier, created = Supplier.objects.get_or_create(
+                            name=product_data['supplier_name'],
+                            defaults={
+                                'contact_person': 'Unknown',
+                                'email': 'unknown@example.com',
+                                'phone': 'Unknown',
+                                'address': 'Unknown',
+                                'halal_certified': True  # Assume halal for import
+                            }
+                        )
+                    
+                    # Create product
+                    product = Product.objects.create(
+                        name=product_data['name'],
+                        sku=product_data.get('sku', f'SKU{row_num}'),
+                        category=category,
+                        supplier=supplier,
+                        price=product_data.get('price', 0),
+                        current_stock=product_data.get('current_stock', 0),
+                        minimum_stock=product_data.get('minimum_stock', 0),
+                        expiry_date=product_data.get('expiry_date'),
+                        description=product_data.get('description', ''),
+                        supermarket=supermarket,
+                        is_halal=True,
+                        is_active=True
+                    )
+                    
+                    imported_products.append(ProductSerializer(product).data)
+                    
+                except Exception as e:
+                    errors.append(f"Row {row_num}: {str(e)}")
+            
+            return Response({
+                'message': f'Successfully imported {len(imported_products)} products',
+                'imported_products': imported_products,
+                'total_imported': len(imported_products),
+                'errors': errors,
+                'success': len(imported_products) > 0
+            }, status=status.HTTP_201_CREATED if imported_products else status.HTTP_400_BAD_REQUEST)
+            
+        except Exception as e:
+            return Response({'error': f'Failed to process Excel file: {str(e)}'}, 
+                          status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class StockTransactionViewSet(viewsets.ReadOnlyModelViewSet):
