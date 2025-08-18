@@ -26,6 +26,14 @@ def health_check(request):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
+def healthz(request):
+    """
+    Simple health check endpoint for Kubernetes and other container orchestration systems
+    """
+    return JsonResponse({"status": "ok"})
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def api_info(request):
     """
     API information endpoint
@@ -35,6 +43,7 @@ def api_info(request):
         'version': '1.0.0',
         'endpoints': {
             'health': '/health/',
+            'healthz': '/healthz/',
             'admin': '/admin/',
             'api': {
                 'products': '/api/products/',

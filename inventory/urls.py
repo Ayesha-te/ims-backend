@@ -10,7 +10,7 @@ from .auth_views import (
     register_supermarket, login_supermarket, logout_supermarket,
     get_current_supermarket, refresh_token
 )
-from .health_views import health_check, api_info
+from .health_views import health_check, api_info, healthz
 
 router = DefaultRouter()
 router.register(r'categories', CategoryViewSet)
@@ -29,6 +29,7 @@ urlpatterns = [
     # Root endpoint for health checks
     path('', health_check, name='health_check'),
     path('health/', health_check, name='health_check_alt'),
+    path('healthz/', healthz, name='healthz'),  # ✅ Health check endpoint for Kubernetes
     path('info/', api_info, name='api_info'),
     
     # Authentication endpoints

@@ -28,6 +28,7 @@ admin.site.index_title = "Welcome to Halal Inventory Management System"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('healthz_direct')),  # ✅ Health check endpoint for Kubernetes
     path('', include('inventory.urls')),
     path('auth/token/', obtain_auth_token, name='api_token_auth'),
     # Direct fallback auth endpoints for compatibility
