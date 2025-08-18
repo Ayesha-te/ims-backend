@@ -11,6 +11,7 @@ from .auth_views import (
     get_current_supermarket, refresh_token
 )
 from .health_views import health_check, api_info, healthz
+from .import_views import import_excel, import_image
 
 router = DefaultRouter()
 router.register(r'categories', CategoryViewSet)
@@ -38,6 +39,10 @@ urlpatterns = [
     path('api/auth/logout/', logout_supermarket, name='logout_supermarket'),
     path('api/auth/me/', get_current_supermarket, name='current_supermarket'),
     path('api/auth/refresh/', refresh_token, name='refresh_token'),
+    
+    # Import endpoints
+    path('api/products/import-excel/', import_excel, name='import_excel'),
+    path('api/products/import-image/', import_image, name='import_image'),
     
     # API endpoints
     path('api/', include(router.urls)),

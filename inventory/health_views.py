@@ -49,7 +49,11 @@ def api_info(request):
                 'products': '/api/products/',
                 'categories': '/api/categories/',
                 'suppliers': '/api/suppliers/',
-                'stock_alerts': '/api/stock-alerts/'
+                'stock_alerts': '/api/stock-alerts/',
+                'import': {
+                    'excel': '/api/products/import-excel/',
+                    'image': '/api/products/import-image/'
+                }
             },
             'auth': '/auth/token/'
         }
